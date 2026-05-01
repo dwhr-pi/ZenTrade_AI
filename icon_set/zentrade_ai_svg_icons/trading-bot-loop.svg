@@ -1,0 +1,18 @@
+<svg width="256" height="256" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="trading-bot-loop">
+  <defs>
+    <linearGradient id="g" x1="32" y1="28" x2="224" y2="228" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#00E5FF"/><stop offset="0.55" stop-color="#8B5CFF"/><stop offset="1" stop-color="#FF4FD8"/>
+    </linearGradient>
+    <filter id="glow" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <rect width="256" height="256" rx="56" fill="#070A18"/>
+  <g filter="url(#glow)" stroke="url(#g)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="128" cy="128" r="48"/>
+    <path d="M96 124h64v36H96z"/>
+    <circle cx="115" cy="142" r="5"/><circle cx="141" cy="142" r="5"/>
+    <path d="M73 79a76 76 0 0 1 109-3"/>
+    <path d="M185 48v35h-35"/>
+    <path d="M183 177a76 76 0 0 1-109 3"/>
+    <path d="M71 208v-35h35"/>
+  </g>
+</svg>

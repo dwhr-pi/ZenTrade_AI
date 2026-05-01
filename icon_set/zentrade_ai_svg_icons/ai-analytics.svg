@@ -1,0 +1,14 @@
+<svg width="256" height="256" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ai-analytics">
+  <defs>
+    <linearGradient id="g" x1="32" y1="28" x2="224" y2="228" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#00E5FF"/><stop offset="0.55" stop-color="#8B5CFF"/><stop offset="1" stop-color="#FF4FD8"/>
+    </linearGradient>
+    <filter id="glow" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <rect width="256" height="256" rx="56" fill="#070A18"/>
+  <g filter="url(#glow)" stroke="url(#g)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M79 170c-25-17-30-53-7-78 6-44 71-48 87-12 38 2 48 58 16 76"/>
+    <path d="M86 116h84M100 90v78M130 82v94M160 100v55"/>
+    <circle cx="100" cy="116" r="7"/><circle cx="130" cy="116" r="7"/><circle cx="160" cy="116" r="7"/>
+  </g>
+</svg>

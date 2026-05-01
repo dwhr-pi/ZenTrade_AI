@@ -1,0 +1,20 @@
+:root {
+  --zentrade-bg: #070812;
+  --zentrade-cyan: #23e6ff;
+  --zentrade-pink: #ff4fd8;
+  --zentrade-violet: #915cff;
+  --zentrade-text-dark: #08111f;
+  --zentrade-text-light: #e9fbff;
+}
+
+.zentrade-icon {
+  color: var(--zentrade-cyan);
+}
+
+.zentrade-icon--pink {
+  color: var(--zentrade-pink);
+}
+
+.zentrade-icon--violet {
+  color: var(--zentrade-violet);
+}

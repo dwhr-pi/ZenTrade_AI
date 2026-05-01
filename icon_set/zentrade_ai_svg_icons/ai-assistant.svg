@@ -1,0 +1,17 @@
+<svg width="256" height="256" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ai-assistant">
+  <defs>
+    <linearGradient id="g" x1="32" y1="28" x2="224" y2="228" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#00E5FF"/><stop offset="0.55" stop-color="#8B5CFF"/><stop offset="1" stop-color="#FF4FD8"/>
+    </linearGradient>
+    <filter id="glow" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <rect width="256" height="256" rx="56" fill="#070A18"/>
+  <g filter="url(#glow)" stroke="url(#g)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="64" y="72" width="128" height="108" rx="36"/>
+    <path d="M96 72V45M160 72V45M128 180v30"/>
+    <circle cx="101" cy="125" r="10"/>
+    <circle cx="155" cy="125" r="10"/>
+    <path d="M107 153c16 10 26 10 42 0"/>
+    <path d="M48 119h16M192 119h16"/>
+  </g>
+</svg>
