@@ -1,0 +1,32 @@
+[
+  {
+    "id": "a417bc40",
+    "selector": "stub.BTC-USD",
+    "from": 1777327620000,
+    "to": 1777417560000,
+    "oldest_time": 1777327620000,
+    "newest_time": 1777417560000,
+    "_id": "a417bc40",
+    "_natural": 0
+  },
+  {
+    "id": "514e4b82",
+    "selector": "stub.BTC-USD",
+    "from": 1777573800000,
+    "to": 1777663740000,
+    "oldest_time": 1777573800000,
+    "newest_time": 1777663740000,
+    "_id": "514e4b82",
+    "_natural": 1
+  },
+  {
+    "id": "fcd0678f",
+    "selector": "stub.BTC-USD",
+    "from": 1777573800000,
+    "to": 1777664820000,
+    "oldest_time": 1777573800000,
+    "newest_time": 1777664820000,
+    "_id": "fcd0678f",
+    "_natural": 2
+  }
+]
