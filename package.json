@@ -17,6 +17,7 @@
     "lint-fix": "eslint **/*.js --fix",
     "precommit": "lint-staged",
     "test": "jasmine test/**/**.test.js",
+    "test:backtest-helper": "node --test test/scripts/backtest_helper.test.js",
     "test-one": "jasmine $PATH_TO_TEST",
     "postinstall": "node post_install.js",
     "snyk-protect": "snyk protect",

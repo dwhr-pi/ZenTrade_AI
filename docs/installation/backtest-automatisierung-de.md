@@ -214,6 +214,16 @@ Dadurch ist spaeter nachvollziehbar:
 - welche am schlechtesten abschnitten
 - welche Strategien oder Paare aktuell fehlschlagen
 
+## Regression und Pruefung
+
+Die Helferlogik fuer Selector-Erkennung, Ergebnisaufbereitung und Ranking ist zusaetzlich automatisiert abgesichert.
+
+Der passende Test liegt unter:
+
+- `test/scripts/backtest_helper.test.js`
+
+Damit bleibt der aktuelle Integrationsstand leichter pruefbar, wenn spaeter weitere Backtest-Auswertungen oder Reportformate dazukommen.
+
 ## Wichtige Hinweise
 
 - Fehlende oder nicht direkt nutzbare Strategien werden sauber uebersprungen.

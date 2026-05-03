@@ -28,5 +28,15 @@
     "newest_time": 1777664820000,
     "_id": "fcd0678f",
     "_natural": 2
+  },
+  {
+    "id": "a15af5d8",
+    "selector": "stub.BTC-USD",
+    "from": 1777699200000,
+    "to": 1777789140000,
+    "oldest_time": 1777699200000,
+    "newest_time": 1777789140000,
+    "_id": "a15af5d8",
+    "_natural": 3
   }
 ]
