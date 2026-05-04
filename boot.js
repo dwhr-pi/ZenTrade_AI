@@ -37,11 +37,6 @@ module.exports = function (cb) {
   var eventBus = new EventEmitter()
   zenbot.conf.eventBus = eventBus
 
-  if (zenbot.conf.db && zenbot.conf.db.type === 'sql') {
-    console.error('WARNING: db.type=sql is reserved for a later integration and is not active in the current core build.')
-    console.error('WARNING: falling back to mongo configuration for this run.')
-  }
-
   if (zenbot.conf.db && zenbot.conf.db.type && ['mongo', 'csv', 'sql'].indexOf(zenbot.conf.db.type) === -1) {
     console.error('WARNING: unknown db.type "' + zenbot.conf.db.type + '". falling back to mongo configuration.')
   }
@@ -58,6 +53,21 @@ module.exports = function (cb) {
       .catch(function (err) {
         console.error('WARNING: CSV Database Connection Error: ', err)
         cb(null, zenbot)
+      })
+    return
+  }
+
+  if (zenbot.conf.db && zenbot.conf.db.type === 'sql') {
+    var sqlConnectionManager = require('./lib/db/sql-connection-manager')(zenbot.conf)
+    sqlConnectionManager.init()
+      .then(function (sqlManager) {
+        _.set(zenbot, 'conf.db.sql', sqlManager)
+        cb(null, zenbot)
+      })
+      .catch(function (err) {
+        console.error('WARNING: SQL Database Connection Error: ', err)
+        console.error('WARNING: SQL auto-bootstrap currently supports sqlite only and will not silently fall back to MongoDB.')
+        cb(err)
       })
     return
   }
