@@ -146,9 +146,12 @@ module.exports = function (program, conf) {
       }
 
       function runTasks (trades) {
+        var preparedTrades = trades.map(function (trade) {
+          return prepareTrade(trade)
+        })
         var persistTrades = typeof tradesCollection.bulkUpsert === 'function'
-          ? tradesCollection.bulkUpsert(trades.map(function (trade) { return prepareTrade(trade) }))
-          : Promise.all(trades.map((trade)=>saveTrade(trade)))
+          ? tradesCollection.bulkUpsert(preparedTrades)
+          : Promise.all(preparedTrades.map(function (trade) { return saveTrade(trade) }))
 
         persistTrades.then(function(/*results*/){
           var oldest_time = marker.oldest_time
@@ -242,7 +245,6 @@ module.exports = function (program, conf) {
       }
 
       function saveTrade (trade) {
-        trade = prepareTrade(trade)
         return tradesCollection.replaceOne({_id: trade.id}, trade, {upsert: true})
       }
     })

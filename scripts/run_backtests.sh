@@ -27,6 +27,7 @@ RAW_LOG_DIR="${RAW_LOG_DIR:-${REPORT_DIR}/${REPORT_BASENAME}_logs}"
 WORK_DATA_DIR="${WORK_DATA_DIR:-${REPORT_DIR}/${REPORT_BASENAME}_data}"
 TMP_RESULTS="${REPORT_DIR}/${REPORT_BASENAME}.jsonl"
 HELPER_JS="./scripts/backtest_helper.js"
+DB_MODE=""
 
 declare -a STRATEGIES=()
 declare -a DISCOVERED_STRATEGIES=()
@@ -105,6 +106,10 @@ discover_selectors_from_exchange() {
   node "$HELPER_JS" discover-selectors "." "$exchange_name" "$max_products"
 }
 
+resolve_db_mode() {
+  node "$HELPER_JS" resolve-db-mode "$CONF_PATH"
+}
+
 build_selectors_from_products() {
   local exchange_name="$1"
   local raw_products="$2"
@@ -140,34 +145,58 @@ prepare_selector_list() {
 }
 
 count_sim_results() {
-  local csv_dir="$1"
-  node "$HELPER_JS" count-sim-results "$csv_dir"
+  local data_dir="$1"
+  node "$HELPER_JS" count-sim-results "$DB_MODE" "$data_dir"
 }
 
 extract_new_result() {
-  local csv_dir="$1"
+  local data_dir="$1"
   local before_count="$2"
-  node "$HELPER_JS" extract-new-result "$csv_dir" "$before_count"
+  node "$HELPER_JS" extract-new-result "$DB_MODE" "$data_dir" "$before_count"
+}
+
+run_zenbot_with_backend() {
+  local data_dir="$1"
+  shift
+
+  if [[ "$DB_MODE" == "sql" ]]; then
+    ZENBOT_DB_TYPE=sql \
+    ZENBOT_DB_SQL_DIALECT=sqlite \
+    ZENBOT_DB_SQL_DIR="$data_dir" \
+    ZENBOT_DB_SQL_STORAGE="${data_dir}/zenbot.sqlite" \
+    "${ZENBOT_CMD[@]}" "$@"
+    return
+  fi
+
+  if [[ "$DB_MODE" == "csv" ]]; then
+    ZENBOT_DB_TYPE=csv ZENBOT_DB_CSV_DIR="$data_dir" "${ZENBOT_CMD[@]}" "$@"
+    return
+  fi
+
+  "${ZENBOT_CMD[@]}" "$@"
 }
 
 ensure_selector_data() {
   local selector="$1"
-  local csv_dir="$2"
-  local trade_file="${csv_dir}/trades.json"
+  local data_dir="$2"
+  local trade_file="${data_dir}/trades.json"
+  local sql_file="${data_dir}/zenbot.sqlite"
   local exchange_name="${selector%%.*}"
   local should_backfill=0
 
-  mkdir -p "$csv_dir"
+  mkdir -p "$data_dir"
 
   if [[ "$AUTO_BACKFILL" == "1" ]]; then
     should_backfill=1
-  elif [[ "$AUTO_BACKFILL" == "auto" && "$exchange_name" == "stub" && ! -s "$trade_file" ]]; then
+  elif [[ "$AUTO_BACKFILL" == "auto" && "$exchange_name" == "stub" && "$DB_MODE" == "csv" && ! -s "$trade_file" ]]; then
+    should_backfill=1
+  elif [[ "$AUTO_BACKFILL" == "auto" && "$exchange_name" == "stub" && "$DB_MODE" == "sql" && ! -s "$sql_file" ]]; then
     should_backfill=1
   fi
 
   if [[ "$should_backfill" -eq 1 ]]; then
     echo "Preparing data for ${selector} via backfill..."
-    ZENBOT_DB_TYPE=csv ZENBOT_DB_CSV_DIR="$csv_dir" "${ZENBOT_CMD[@]}" backfill "$selector" --conf "$CONF_PATH" --days "$BACKFILL_DAYS" >> "$REPORT_FILE" 2>&1 || true
+    run_zenbot_with_backend "$data_dir" backfill "$selector" --conf "$CONF_PATH" --days "$BACKFILL_DAYS" >> "$REPORT_FILE" 2>&1 || true
   fi
 }
 
@@ -184,14 +213,14 @@ build_result_row() {
   local selector="$1"
   local strategy="$2"
   local status="$3"
-  local csv_dir="$4"
+  local data_dir="$4"
   local log_file="$5"
   local report_file="$6"
   local sim_result_file="$7"
   local exchange_name="${selector%%.*}"
   local product_name="${selector#*.}"
 
-  node "$HELPER_JS" build-result-row "$selector" "$strategy" "$status" "$csv_dir" "$log_file" "$report_file" "$CONF_PATH" "$DAYS" "$BACKFILL_DAYS" "$PERIOD_LENGTH" "$MIN_PERIODS" "$exchange_name" "$product_name" "$sim_result_file"
+  node "$HELPER_JS" build-result-row "$selector" "$strategy" "$status" "$DB_MODE" "$data_dir" "$log_file" "$report_file" "$CONF_PATH" "$DAYS" "$BACKFILL_DAYS" "$PERIOD_LENGTH" "$MIN_PERIODS" "$exchange_name" "$product_name" "$sim_result_file"
 }
 
 generate_outputs() {
@@ -217,6 +246,8 @@ while IFS= read -r strategy; do
 done < <(discover_strategies)
 
 prepare_selector_list
+
+DB_MODE="$(resolve_db_mode)"
 
 if [[ "${1:-}" == "--list" || "${1:-}" == "--list-strategies" ]]; then
   print_strategy_warning
@@ -250,6 +281,11 @@ fi
 
 read -r -a ZENBOT_CMD <<< "$ZENBOT_BIN"
 
+if [[ "$DB_MODE" != "csv" && "$DB_MODE" != "sql" ]]; then
+  echo "The automated backtest flow currently supports csv or sql configs. Resolved db.type: $DB_MODE"
+  exit 1
+fi
+
 {
   echo "===================================================="
   echo "ZENBOT BACKTEST REPORT"
@@ -264,6 +300,7 @@ read -r -a ZENBOT_CMD <<< "$ZENBOT_BIN"
   echo "Period length: ${PERIOD_LENGTH}"
   echo "Min periods: ${MIN_PERIODS}"
   echo "Config: ${CONF_PATH}"
+  echo "DB mode: ${DB_MODE}"
   echo "AUTO_BACKFILL: ${AUTO_BACKFILL}"
   echo "===================================================="
   echo
@@ -278,43 +315,43 @@ echo "Ranking: $RANKING_MD"
 
 for selector in "${RESOLVED_SELECTORS[@]}"; do
   selector_safe="$(safe_name "$selector")"
-  selector_csv_dir="${WORK_DATA_DIR}/${selector_safe}"
+  selector_data_dir="${WORK_DATA_DIR}/${selector_safe}"
 
   echo "Preparing selector: ${selector}" | tee -a "$REPORT_FILE"
-  ensure_selector_data "$selector" "$selector_csv_dir"
+  ensure_selector_data "$selector" "$selector_data_dir"
 
   for strategy in "${STRATEGIES[@]}"; do
     if [[ ! -d "${STRATEGY_ROOT}/${strategy}" ]]; then
       echo "Skip missing strategy: ${strategy}" | tee -a "$REPORT_FILE"
-      row="$(build_result_row "$selector" "$strategy" 999 "$selector_csv_dir" "$REPORT_FILE" "$REPORT_FILE" "")"
+      row="$(build_result_row "$selector" "$strategy" 999 "$selector_data_dir" "$REPORT_FILE" "$REPORT_FILE" "")"
       append_result_row "$row"
       continue
     fi
 
     if [[ ! -f "${STRATEGY_ROOT}/${strategy}/strategy.js" ]]; then
       echo "Skip unusable strategy: ${strategy}" | tee -a "$REPORT_FILE"
-      row="$(build_result_row "$selector" "$strategy" 998 "$selector_csv_dir" "$REPORT_FILE" "$REPORT_FILE" "")"
+      row="$(build_result_row "$selector" "$strategy" 998 "$selector_data_dir" "$REPORT_FILE" "$REPORT_FILE" "")"
       append_result_row "$row"
       continue
     fi
 
-    before_count="$(count_sim_results "$selector_csv_dir")"
+    before_count="$(count_sim_results "$selector_data_dir")"
     log_file="${RAW_LOG_DIR}/${selector_safe}__${strategy}.log"
     sim_result_file="${RAW_LOG_DIR}/${selector_safe}__${strategy}.json"
     : > "$sim_result_file"
 
     echo "Running simulation for ${selector} with ${strategy}" | tee -a "$REPORT_FILE"
-    ZENBOT_DB_TYPE=csv ZENBOT_DB_CSV_DIR="$selector_csv_dir" "${ZENBOT_CMD[@]}" sim "$selector" --conf "$CONF_PATH" --strategy "$strategy" --days "$DAYS" --period_length "$PERIOD_LENGTH" --min_periods "$MIN_PERIODS" --filename none > "$log_file" 2>&1
+    run_zenbot_with_backend "$selector_data_dir" sim "$selector" --conf "$CONF_PATH" --strategy "$strategy" --days "$DAYS" --period_length "$PERIOD_LENGTH" --min_periods "$MIN_PERIODS" --filename none > "$log_file" 2>&1
     status=$?
-    after_count="$(count_sim_results "$selector_csv_dir")"
+    after_count="$(count_sim_results "$selector_data_dir")"
     if [[ "$after_count" -gt "$before_count" ]]; then
-      extract_new_result "$selector_csv_dir" "$before_count" > "$sim_result_file"
+      extract_new_result "$selector_data_dir" "$before_count" > "$sim_result_file"
     fi
 
     cat "$log_file" >> "$REPORT_FILE"
     printf '\n----------------------------------------------------\n' >> "$REPORT_FILE"
 
-    row="$(build_result_row "$selector" "$strategy" "$status" "$selector_csv_dir" "$log_file" "$REPORT_FILE" "$sim_result_file")"
+    row="$(build_result_row "$selector" "$strategy" "$status" "$selector_data_dir" "$log_file" "$REPORT_FILE" "$sim_result_file")"
     append_result_row "$row"
   done
 done

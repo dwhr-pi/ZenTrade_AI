@@ -25,18 +25,20 @@ c.db = {}
 // Unterstuetzte Werte:
 // - 'mongo'  klassischer Zenbot-Betrieb mit MongoDB
 // - 'csv'    lokaler dateibasierter Test- und Pilotbetrieb
-// - 'sql'    reserviert fuer spaetere Integration, aktuell noch nicht im Kern aktiviert
+// - 'sql'    lokaler SQL-Betrieb, derzeit mit automatischer SQLite-Einrichtung
 c.db.type = process.env.ZENBOT_DB_TYPE || 'mongo'
 c.db.csv = {}
 c.db.csv.dataDir = process.env.ZENBOT_DB_CSV_DIR || './data/csv'
 c.db.csv.syncInterval = process.env.ZENBOT_DB_CSV_SYNC_INTERVAL || 0
 
-// Reservierter Platz fuer eine spaetere SQL-Integration.
-// Dieser Block wird derzeit noch nicht vom Kern verwendet.
+// SQL-Konfiguration.
+// Die Standardvariante nutzt SQLite ueber Node.js und legt die Datei bei Bedarf automatisch an.
 c.db.sql = {}
 c.db.sql.dialect = process.env.ZENBOT_DB_SQL_DIALECT || 'sqlite'
 c.db.sql.connectionString = process.env.ZENBOT_DB_SQL_CONNECTION_STRING || null
 c.db.sql.directory = process.env.ZENBOT_DB_SQL_DIR || './data/sql'
+c.db.sql.storage = process.env.ZENBOT_DB_SQL_STORAGE || null
+c.db.sql.autoProvision = process.env.ZENBOT_DB_SQL_AUTO_PROVISION || true
 
 // Standardauswahl. Wird nur verwendet, wenn das Argument [selector] in einem Befehl weggelassen wird.
 c.selector = process.env.ZENBOT_DEFAULT_SELECTOR || 'gdax.BTC-USD'

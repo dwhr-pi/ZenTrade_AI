@@ -30,7 +30,8 @@ async function main() {
       sql: {
         dialect: 'sqlite',
         directory: dataDir,
-        storage: path.join(dataDir, 'zenbot.sqlite')
+        storage: path.join(dataDir, 'zenbot.sqlite'),
+        autoProvision: true
       }
     }
   }
@@ -44,21 +45,11 @@ async function main() {
   const myTrades = collectionService.getMyTrades()
   const resumeMarkers = collectionService.getResumeMarkers()
 
-  await trades.replaceOne(
-    { _id: 'trade-1' },
+  await trades.bulkUpsert([
     { _id: 'trade-1', id: 'trade-1', selector: 'gdax.BTC-USD', trade_id: '1', time: 1000, price: 10 },
-    { upsert: true }
-  )
-  await trades.replaceOne(
-    { _id: 'trade-2' },
     { _id: 'trade-2', id: 'trade-2', selector: 'gdax.BTC-USD', trade_id: '2', time: 2000, price: 20 },
-    { upsert: true }
-  )
-  await trades.replaceOne(
-    { _id: 'trade-3' },
-    { _id: 'trade-3', id: 'trade-3', selector: 'gdax.ETH-USD', trade_id: '3', time: 1500, price: 30 },
-    { upsert: true }
-  )
+    { _id: 'trade-3', id: 'trade-3', selector: 'gdax.ETH-USD', trade_id: '3', time: 1500, price: 30 }
+  ])
 
   const ascTrades = await toArray(
     trades.find({ selector: 'gdax.BTC-USD' }).limit(10).sort({ time: 1 })
@@ -96,9 +87,8 @@ async function main() {
   const tradeCount = await trades.count({ selector: 'gdax.BTC-USD' })
   assert(tradeCount === 2, 'expected count() to work')
 
-  manager.close()
   console.log('SQL compatibility test passed')
-  console.log(dataDir)
+  console.log(manager.storagePath)
 }
 
 main().catch((err) => {

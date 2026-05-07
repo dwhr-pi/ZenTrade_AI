@@ -19,6 +19,50 @@ function stripAnsi(text) {
   return text.replace(/\u001b\[[0-9;]*m/g, '')
 }
 
+function readSqlRows(dataDir) {
+  const storage = path.join(dataDir, 'zenbot.sqlite')
+  if (!fs.existsSync(storage)) return []
+
+  let sqlite
+  try {
+    sqlite = require('node:sqlite')
+  } catch (err) {
+    return []
+  }
+
+  const db = new sqlite.DatabaseSync(storage)
+  try {
+    const rows = db.prepare('SELECT doc_json FROM zb_sim_results ORDER BY natural ASC').all()
+    return rows.map(row => JSON.parse(row.doc_json))
+  } catch (err) {
+    return []
+  } finally {
+    db.close()
+  }
+}
+
+function readSimResults(dbMode, dataDir) {
+  if (dbMode === 'sql') {
+    return readSqlRows(dataDir)
+  }
+
+  const file = path.join(dataDir, 'sim_results.json')
+  const data = readJson(file, [])
+  return Array.isArray(data) ? data : []
+}
+
+function resolveDbMode(confPath) {
+  try {
+    const resolved = path.resolve(process.cwd(), confPath)
+    delete require.cache[resolved]
+    const conf = require(resolved)
+    const dbMode = conf && conf.db && conf.db.type ? conf.db.type : 'mongo'
+    write(dbMode)
+  } catch (err) {
+    write('mongo')
+  }
+}
+
 function discoverSelectors(root, exchange, maxProductsRaw) {
   const maxProducts = Number(maxProductsRaw || 0)
   const productsPath = path.join(root, 'extensions', 'exchanges', exchange, 'products.json')
@@ -35,16 +79,14 @@ function discoverSelectors(root, exchange, maxProductsRaw) {
   write(limited.length ? limited.join('\n') + '\n' : '')
 }
 
-function countSimResults(csvDir) {
-  const file = path.join(csvDir, 'sim_results.json')
-  const data = readJson(file, [])
+function countSimResults(dbMode, dataDir) {
+  const data = readSimResults(dbMode, dataDir)
   write(Array.isArray(data) ? data.length : 0)
 }
 
-function extractNewResult(csvDir, beforeCountRaw) {
+function extractNewResult(dbMode, dataDir, beforeCountRaw) {
   const beforeCount = Number(beforeCountRaw || 0)
-  const file = path.join(csvDir, 'sim_results.json')
-  const data = readJson(file, [])
+  const data = readSimResults(dbMode, dataDir)
   if (!Array.isArray(data) || data.length <= beforeCount) return
   write(JSON.stringify(data[data.length - 1], null, 2))
 }
@@ -54,7 +96,8 @@ function buildResultRow(args) {
     selector,
     strategy,
     statusRaw,
-    csvDir,
+    dbMode,
+    dataDir,
     logFile,
     reportFile,
     confPath,
@@ -99,7 +142,8 @@ function buildResultRow(args) {
     success: status === 0 && !!simresults,
     config: {
       conf_path: confPath,
-      csv_dir: csvDir,
+      db_mode: dbMode,
+      data_dir: dataDir,
       days,
       backfill_days: backfillDays,
       period_length: periodLength,
@@ -271,6 +315,7 @@ function generateOutputs(tmpResults, resultsJson, resultsCsv, rankingMd, reportF
     '',
     '- Verschobene oder geparkte Strategien werden absichtlich nicht automatisch mit getestet.',
     '- Erfolgswerte stammen aus den von Zenbot geschriebenen `sim_results`-Datensaetzen, sofern ein Lauf regulaer abgeschlossen wurde.',
+    '- Der Auswertungspfad unterstuetzt sowohl CSV- als auch SQL-Laeufe, solange die Daten lokal pro Testlauf abgelegt werden.',
     '- Fehlgeschlagene Laeufe bleiben in der Auswertung sichtbar, damit das Ranking nicht stillschweigend schoengerechnet wird.'
   ].join('\n')
 
@@ -280,6 +325,9 @@ function generateOutputs(tmpResults, resultsJson, resultsCsv, rankingMd, reportF
 const [command, ...args] = process.argv.slice(2)
 
 switch (command) {
+  case 'resolve-db-mode':
+    resolveDbMode(...args)
+    break
   case 'discover-selectors':
     discoverSelectors(...args)
     break

@@ -1,155 +1,90 @@
-![ZenTrade_AI Logo](assets/logo.png)
-
 # ZenTrade_AI
 
-ZenTrade_AI ist der aktuelle Arbeitsstand dieses Repositories fuer Analyse, Backtesting, Simulation und Paper-Trading auf Basis von Zenbot.
+`ZenTrade_AI` ist die aktuelle Arbeitslinie fuer Analyse, Backtesting, Simulation und Paper-Trading auf Basis von Zenbot. Der Schwerpunkt liegt auf einer lokal nutzbaren Infrastruktur ohne MongoDB-Zwang, mit sauber dokumentierter Umschaltung zwischen mehreren Datenbanktechniken.
 
-Der Schwerpunkt liegt bewusst auf:
+Wichtiger Hinweis:
 
-- Datenanalyse
-- Strategieentwicklung
-- Backtesting
-- Simulation
-- `trade --paper`
-- lokalem Testbetrieb ohne MongoDB
+- Nutzung auf eigene Gefahr.
+- Keine Haftung fuer Verluste oder Schaeden.
+- Die Projektlinie in `Trading_Analysis.md` und den Dokus bleibt fuehrend.
 
-Nicht Ziel dieses Repos sind:
+## Aktueller Fokus
 
-- AI-gesteuerte Live-Orderausfuehrung
-- autonome Kauf- oder Verkaufsentscheidungen
-- Finanzberatung
+- Analyse und Strategieentwicklung
+- Backtesting und Simulationslaeufe
+- Paper-Trading
+- CSV- und SQL-basierte lokale Datenspeicherung
+- spaetere Erweiterbarkeit fuer weitere Datenbankpfade
 
-Die verbindliche Projektgrenze steht in:
+## Datenbankmodi
 
-- [Trading_Analysis.md](Trading_Analysis.md)
-- [docs/trading-risiken-und-grenzen-de.md](docs/trading-risiken-und-grenzen-de.md)
+Der Kern kann aktuell mit drei Konfigurationspfaden arbeiten:
 
-## Aktueller Stand
+- `mongo` fuer klassischen Altbetrieb
+- `csv` fuer lokale Dateiablaeufe ohne MongoDB
+- `sql` fuer lokalen SQL-Betrieb mit automatischer SQLite-Einrichtung
 
-Im aktuellen Projektstand sind bereits eingearbeitet:
+Wichtig:
 
-- CSV-Dateibackend fuer lokale Tests ohne MongoDB
-- `stub`-Exchange fuer reproduzierbare Offline-Tests
-- WSL-/Ubuntu-Dokumentation fuer den CSV-Pfad
-- Backtest-Skripte mit automatischer Strategie-Erkennung
-- automatische Selector-Erkennung ueber Exchange-`products.json`
-- Ranking-Dateien fuer Backtest-Auswertungen
+- `csv` und `sql` sind fuer lokale Tests, Backfills, Simulationen und Paper-Trading gedacht.
+- `sql` nutzt derzeit SQLite ueber die in Node.js eingebaute `node:sqlite`-Runtime.
+- Wenn `db.type='sql'` gesetzt ist, wird die SQLite-Datei bei Bedarf automatisch angelegt.
+- Externe SQL-Server wie PostgreSQL oder MySQL werden im aktuellen Stand noch nicht automatisch installiert oder eingebunden.
 
-Wichtig fuer die Datenmodi:
+Mehr dazu:
 
-- `mongo` bleibt als Altpfad vorhanden
-- `csv` ist aktuell der praktisch nutzbare lokale Test- und Pilotpfad
-- `sql` ist dokumentarisch vorbereitet, aber im Kern noch nicht aktiviert
-
-Details dazu:
-
-- [docs/installation/database-modes-de.md](docs/installation/database-modes-de.md)
-
-## Installation
-
-### 1. Repository klonen
-
-```powershell
-git clone <REPO-URL>
-cd ZenTrade_AI
-```
-
-### 2. Abhaengigkeiten installieren
-
-```powershell
-npm install
-```
-
-Hinweis:
-
-- In diesem Projekt gibt es zusaetzliche Sicherungskopien wie `node_module - copy`.
-- Diese dienen nur als Referenz alter funktionierender Installationen und sind kein regulaerer Laufzeitpfad.
-
-### 3. Konfiguration waehlen
-
-Fuer den aktuellen lokalen Einstieg ohne MongoDB:
-
-```powershell
-node .\zenbot.js sim --conf .\conf-examples\csv.conf.js
-```
-
-Die wichtigste lokale Vorlage ist:
-
-- [conf-examples/csv.conf.js](conf-examples/csv.conf.js)
-
-Weitere Vorlagen:
-
-- `conf-examples/csv-live.conf.js`
-- `conf-examples/mongo.conf.js`
-- `conf-examples/sql.conf.js`
+- `docs/installation/database-modes-de.md`
+- `docs/installation/csv-de.md`
 
 ## Empfohlener Einstieg ohne MongoDB
 
-Wenn MongoDB in der Zielumgebung problematisch ist, ist der empfohlene Weg aktuell:
-
-1. CSV-Konfiguration verwenden.
-2. Mit dem `stub`-Exchange lokal testen.
-3. Backfill, Simulation und spaeter `trade --paper` pruefen.
-
-### CSV-Backfill
+### CSV
 
 ```powershell
 node .\zenbot.js backfill stub.BTC-USD --conf .\conf-examples\csv.conf.js --days 1
+node .\zenbot.js sim stub.BTC-USD --conf .\conf-examples\csv.conf.js --strategy volume_universal --period_length 1m --days 1
 ```
 
-### CSV-Simulation
+### SQL
 
 ```powershell
-node .\zenbot.js sim stub.BTC-USD --conf .\conf-examples\csv.conf.js --strategy volume_universal --period_length 1m --min_periods 52 --currency_capital 1000 --asset_capital 0 --filename none --days 1
+node .\zenbot.js backfill stub.BTC-USD --conf .\conf-examples\sql.conf.js --days 1
+node .\zenbot.js sim stub.BTC-USD --conf .\conf-examples\sql.conf.js --strategy volume_universal --period_length 1m --days 1
 ```
 
-### CSV-Paper-Trading
+## Konfigurationsvorlagen
 
-```powershell
-node .\zenbot.js trade stub.BTC-USD --paper --conf .\conf-examples\csv.conf.js --strategy volume_universal --period_length 1m --min_periods 52 --currency_capital 1000 --asset_capital 0 --poll_trades 1000 --run_for 0.05 --non_interactive --filename none
-```
+- `conf-examples/csv.conf.js`
+- `conf-examples/csv-live.conf.js`
+- `conf-examples/sql.conf.js`
+- `conf-examples/mongo.conf.js`
 
-## Referenzlauf
+Die Auswahl erfolgt ueber `db.type` oder direkt per `--conf`.
 
-Ein aktueller reproduzierbarer Referenz-Backtest liegt unter:
+## Schnelle Verifikation
 
-- [simulations/reports/reference_backtest_20260503/README.md](simulations/reports/reference_backtest_20260503/README.md)
-
-Dieser Lauf dokumentiert den derzeit funktionierenden CSV-/Stub-Pfad ohne MongoDB.
-
-## Wichtige Dokumente
-
-Fuer den aktuellen Projektstand sind besonders relevant:
-
-- [docs/installation/README-de.md](docs/installation/README-de.md)
-- [docs/installation/csv-de.md](docs/installation/csv-de.md)
-- [docs/installation/database-modes-de.md](docs/installation/database-modes-de.md)
-- [docs/installation/confjs-leitfaden-de.md](docs/installation/confjs-leitfaden-de.md)
-- [docs/installation/backtest-automatisierung-de.md](docs/installation/backtest-automatisierung-de.md)
-- [docs/installation/wsl-ubuntu-kommandosammlung-de.md](docs/installation/wsl-ubuntu-kommandosammlung-de.md)
-- [docs/installation/wsl-ubuntu-repo-clone-update-de.md](docs/installation/wsl-ubuntu-repo-clone-update-de.md)
-- [docs/installation/wsl-ubuntu-erster-test-checkliste-de.md](docs/installation/wsl-ubuntu-erster-test-checkliste-de.md)
-- [docs/installation/wsl-ubuntu-csv-test-de.md](docs/installation/wsl-ubuntu-csv-test-de.md)
-- [docs/installation/wsl-ubuntu-setup-csv-de.md](docs/installation/wsl-ubuntu-setup-csv-de.md)
-
-## Tests
-
-Der aktuelle Regressionstest fuer die Backtest-Helferlaeuft ueber:
-
-```powershell
-npm run test:backtest-helper
-```
-
-Der CSV-Kompatibilitaetstest laeuft ueber:
+CSV-Kompatibilitaet:
 
 ```powershell
 node .\scripts\test-csv-compat.js
 ```
 
-## Risiken und Haftung
+SQL-Kompatibilitaet:
 
-- Nutzung auf eigene Gefahr
-- keine Haftung fuer finanzielle Verluste
-- keine Haftung fuer technische oder indirekte Schaeden
+```powershell
+npm run test:sql-compat
+```
 
-Backtests, Simulationen und Paper-Trading koennen von echtem Marktverhalten deutlich abweichen.
+## Installationshinweis
+
+Fuer den aktuellen lokalen Kernpfad gilt:
+
+- MongoDB ist nicht mehr Voraussetzung fuer Backtests und Simulationen.
+- CSV braucht keine zusaetzliche Datenbankinstallation.
+- SQL braucht im aktuellen Projektstand keine separate SQLite-Installation, solange eine Node.js-Version mit `node:sqlite` verwendet wird.
+
+## Naechste Integrationslinie
+
+- SQL weiter verfestigen und gegen mehr reale Backtestfaelle pruefen
+- Material aus `neue Strategien und Scripte` gezielt in den Kern uebernehmen
+- anschliessend Access-Kompatibilitaet auf einer stabilen SQL-Basis untersuchen

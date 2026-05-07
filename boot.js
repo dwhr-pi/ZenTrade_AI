@@ -66,8 +66,8 @@ module.exports = function (cb) {
       })
       .catch(function (err) {
         console.error('WARNING: SQL Database Connection Error: ', err)
-        console.error('WARNING: SQL auto-bootstrap currently supports sqlite only and will not silently fall back to MongoDB.')
-        cb(err)
+        console.error('WARNING: without SQL some features (such as backfilling/simulation) may be disabled.')
+        cb(null, zenbot)
       })
     return
   }

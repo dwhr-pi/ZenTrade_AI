@@ -8,6 +8,7 @@ Es basiert auf einer lokalen Zusatzquelle und wurde fuer den aktuellen Projektst
 
 - auf automatische Strategie-Erkennung umgestellt
 - fuer den CSV-Testpfad vorbereitet
+- fuer CSV und SQL vorbereitet
 - auf `node ./zenbot.js` statt blinden Shell-Wrapper vereinheitlicht
 - auf Analyse und Simulation begrenzt
 
@@ -16,6 +17,7 @@ Es basiert auf einer lokalen Zusatzquelle und wurde fuer den aktuellen Projektst
 Das Skript liegt unter:
 
 - `scripts/run_backtests.sh`
+- `scripts/run_backtests.ps1`
 
 ## Was das Skript tut
 
@@ -33,8 +35,10 @@ Geeignet fuer:
 
 - Strategievergleich
 - CSV-Testbetrieb
+- SQL-Testbetrieb mit lokalem SQLite-Pfad
 - schnelle serielle Backtests
 - WSL/Ubuntu
+- PowerShell unter Windows
 
 Nicht gedacht fuer:
 
@@ -213,16 +217,6 @@ Dadurch ist spaeter nachvollziehbar:
 - welche Handelspaare mit welchen Einstellungen am besten abschnitten
 - welche am schlechtesten abschnitten
 - welche Strategien oder Paare aktuell fehlschlagen
-
-## Regression und Pruefung
-
-Die Helferlogik fuer Selector-Erkennung, Ergebnisaufbereitung und Ranking ist zusaetzlich automatisiert abgesichert.
-
-Der passende Test liegt unter:
-
-- `test/scripts/backtest_helper.test.js`
-
-Damit bleibt der aktuelle Integrationsstand leichter pruefbar, wenn spaeter weitere Backtest-Auswertungen oder Reportformate dazukommen.
 
 ## Wichtige Hinweise
 
