@@ -1,111 +1,64 @@
-# ZenTrade AI SVG Icon Set
+# ZenTrade_AI SVG-Uebersicht
 
-Echtes SVG-Icon-Set für Webinterface, GitHub, README, App/Favicon.
+Diese Seite dokumentiert die SVG-Grafiken in diesem Ordner und den zugehoerigen Varianten.
 
-Farben:
-- Cyan: #00E5FF
-- Pink: #FF4FD8
-- Purple: #8B5CFF
-- Dark: #070A18
+## Hauptgrafiken in diesem Ordner
 
-Icons sind bewusst als editierbare, einfache SVGs aufgebaut: `stroke`, `linearGradient`, `filter`.
+- `ai-analytics.svg`
+- `ai-assistant.svg`
+- `alerts.svg`
+- `auto-trading.svg`
+- `continuous-24-7.svg`
+- `fast-execution.svg`
+- `market-scan.svg`
+- `performance.svg`
+- `portfolio.svg`
+- `risk-management.svg`
+- `settings.svg`
+- `sprite.svg`
+- `trading-bot-loop.svg`
+- `wallet.svg`
+- `z-logo-favicon.svg`
+- `zentrade-ai-brand-icon.svg`
 
-Kurz gesagt: **Nein – aktuell nicht.**
-In den SVGs ist der schwarze Hintergrund **fest eingebaut**.
+## Varianten-Saetze
 
-👉 Technisch liegt das an dieser Zeile (in jeder Datei):
+Unter `zentrade_ai_svg_transparent_set/` liegen mehrere Varianten derselben Motive:
 
-```xml
-<rect class="bg" x="24" y="24" width="464" height="464" rx="96"/>
-```
+- `source-original/`
+- `svg-currentcolor/`
+- `svg-dark/`
+- `svg-light/`
+- `svg-transparent/`
 
-Und im Style:
+Typische Motive dort:
 
-```css
-.bg { fill: #070812; }
-```
+- `ai-analytics.svg`
+- `ai-robot-woman.svg`
+- `alerts.svg`
+- `auto-trading.svg`
+- `continuous-247.svg`
+- `fast-execution.svg`
+- `favicon-z.svg`
+- `github-avatar.svg`
+- `market-scan.svg`
+- `portfolio.svg`
+- `risk-management.svg`
+- `settings.svg`
+- `wallet.svg`
+- `zentrade-ai-brand-icon.svg`
 
----
+## Verwendung im Projekt
 
-# 🧠 Was das bedeutet
+Diese Grafiken sind die aktuelle Hauptbasis fuer:
 
-* Hintergrund = **nicht transparent**
-* Gut für:
+- Branding von ZenTrade_AI
+- Favicons und Markenicons
+- thematische UI- und Doku-Grafiken
+- spaetere Web- oder Dashboard-Integrationen
 
-  * GitHub Avatar
-  * Dark UI
-* Nicht optimal für:
+## Verwandte Dateien
 
-  * flexible Webintegration
-  * Light Mode
-  * Overlay-Usecases
-
----
-
-# ⚡ Lösung (2 Varianten)
-
-## ✅ Variante 1 — Transparent machen (empfohlen)
-
-Einfach den Background entfernen:
-
-```xml
-<!-- Diese Zeile löschen -->
-<rect class="bg" x="24" y="24" width="464" height="464" rx="96"/>
-```
-
-👉 Ergebnis:
-
-* kompletter Hintergrund = **transparent**
-* nur Neon-Elemente bleiben sichtbar
-
----
-
-## 🎨 Variante 2 — Optional steuerbar machen
-
-Besser für dein Projekt (Next-Level):
-
-```xml
-<rect class="bg" x="24" y="24" width="464" height="464" rx="96" opacity="0.15"/>
-```
-
-Oder per CSS:
-
-```css
-.bg { fill: #070812; opacity: 0.15; }
-```
-
-👉 Vorteil:
-
-* Glow bleibt sichtbar
-* Hintergrund leicht sichtbar
-* wirkt „schwebend“
-
----
-
-# 🚀 Empfehlung für dein Setup
-
-Für dein **ZenTrade AI Webinterface**:
-
-| Einsatz             | Empfehlung          |
-| ------------------- | ------------------- |
-| GitHub Avatar       | MIT Hintergrund     |
-| Web UI              | OHNE Hintergrund    |
-| Overlay / Dashboard | Transparent         |
-| Light Mode          | Transparent Pflicht |
-
----
-
-# 🔥 Wenn du willst (lohnt sich!)
-
-Ich kann dir direkt ein **Pro-Set bauen:**
-
-* 🔲 transparente Version
-* 🌑 dark version
-* 🌕 light version (Glow angepasst!)
-* 🎛 CSS steuerbare Farben (`currentColor`)
-* ⚛ React Components ready
-
-Sag einfach:
-👉 *„mach mir das SVG Pro Set“*
-
-Dann bekommst du ein richtig cleanes, produktionsreifes Icon-System 💎
+- `../README.md`
+- `../../logo.svg`
+- `../../zenbot_master.svg`

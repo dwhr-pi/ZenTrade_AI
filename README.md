@@ -61,6 +61,13 @@ Schnelle Installationspfade:
 - Autostart: `docs/installation/autostart-de.md`
 - Windows und macOS Installationspfad: `docs/installation/install-windows-macos-de.md`
 
+## SVG-Uebersicht
+
+Die verwendeten Hauptgrafiken sind jetzt dokumentiert unter:
+
+- `assets/README.md`
+- `assets/icon_set/zentrade_ai_svg_icons/README.md`
+
 ## Empfohlener Einstieg ohne MongoDB
 
 ### CSV
