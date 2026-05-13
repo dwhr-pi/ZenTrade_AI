@@ -2,6 +2,26 @@
 
 Diese Seite dokumentiert die SVG-Grafiken in diesem Ordner und den zugehoerigen Varianten.
 
+## Vorschau
+
+<p>
+  <img src="./zentrade_ai_icon_clean.svg" alt="ZenTrade AI Icon Clean" width="250" height="250">
+  <img src="./zentrade-ai-brand-icon.svg" alt="ZenTrade AI Brand Icon" width="250" height="250">
+  <img src="./z-logo-favicon.svg" alt="ZenTrade AI Z Logo Favicon" width="250" height="250">
+</p>
+
+<p>
+  <img src="./ai-analytics.svg" alt="AI Analytics" width="250" height="250">
+  <img src="./ai-assistant.svg" alt="AI Assistant" width="250" height="250">
+  <img src="./market-scan.svg" alt="Market Scan" width="250" height="250">
+</p>
+
+<p>
+  <img src="./portfolio.svg" alt="Portfolio" width="250" height="250">
+  <img src="./risk-management.svg" alt="Risk Management" width="250" height="250">
+  <img src="./wallet.svg" alt="Wallet" width="250" height="250">
+</p>
+
 ## Hauptgrafiken in diesem Ordner
 
 - `ai-analytics.svg`
