@@ -36,6 +36,31 @@ Mehr dazu:
 - `docs/installation/database-modes-de.md`
 - `docs/installation/csv-de.md`
 
+## Repository klonen
+
+Zum Testen, Backtesten und fuer lokale Simulationen sollte direkt dieses Repository geklont werden:
+
+```bash
+git clone https://github.com/dwhr-pi/ZenTrade_AI.git
+cd ZenTrade_AI
+npm install
+```
+
+Wichtig:
+
+- Fuer `csv` und `sql` ist MongoDB im aktuellen Projektstand nicht mehr Pflicht.
+- Fuer lokale Tests reicht in der Regel eine passende Node.js-Installation plus dieses Repo.
+- Die ausfuehrliche Schnellstart-Anleitung unter `docs` bleibt bestehen und wird weiterhin als Doku-Einstieg empfohlen.
+
+Schnelle Installationspfade:
+
+- WSL: `docs/installation/README-de.md`, `docs/installation/install-wsl-rpi-linux-de.md`
+- Raspberry Pi OS und DietPi: `docs/installation/raspberrypi-de.md`, `docs/installation/install-wsl-rpi-linux-de.md`
+- Ubuntu und aehnliche Linux-Systeme: `docs/installation/debian-ubuntu-de.md`, `docs/installation/install-wsl-rpi-linux-de.md`
+- Windows-EXE und Windows-spezifische Hinweise: `docs/installation/windows-exe-de.md`
+- Autostart: `docs/installation/autostart-de.md`
+- Windows und macOS Installationspfad: `docs/installation/install-windows-macos-de.md`
+
 ## Empfohlener Einstieg ohne MongoDB
 
 ### CSV
@@ -82,6 +107,22 @@ Fuer den aktuellen lokalen Kernpfad gilt:
 - MongoDB ist nicht mehr Voraussetzung fuer Backtests und Simulationen.
 - CSV braucht keine zusaetzliche Datenbankinstallation.
 - SQL braucht im aktuellen Projektstand keine separate SQLite-Installation, solange eine Node.js-Version mit `node:sqlite` verwendet wird.
+
+## Plattformhinweis
+
+Fuer den aktuellen ZenTrade_AI-Testpfad ist die empfohlene Reihenfolge:
+
+1. Repository klonen
+2. `npm install`
+3. einen lokalen `csv`- oder `sql`-Pfad waehlen
+4. Backfill oder Simulation gegen `stub.BTC-USD` pruefen
+
+Beispiel fuer den ersten SQL-Test:
+
+```bash
+node ./zenbot.js backfill stub.BTC-USD --conf ./conf-examples/sql.conf.js --days 1
+node ./zenbot.js sim stub.BTC-USD --conf ./conf-examples/sql.conf.js --strategy volume_universal --period_length 1m --days 1
+```
 
 ## Naechste Integrationslinie
 

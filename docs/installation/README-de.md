@@ -80,3 +80,13 @@ Führen Sie einen Zenbot-Befehl aus:
 zenbot --help
 ```
 
+### Weiterfuehrende ZenTrade_AI-Installationspfade
+
+Die Schnellstartseite bleibt bewusst knapp. Fuer den aktuellen ZenTrade_AI-Stand gibt es zusaetzlich:
+
+- `docs/installation/install-wsl-rpi-linux-de.md`
+- `docs/installation/install-windows-macos-de.md`
+- `docs/installation/windows-exe-de.md`
+- `docs/installation/autostart-de.md`
+- `docs/installation/database-modes-de.md`
+- `docs/installation/backtest-automatisierung-de.md`
