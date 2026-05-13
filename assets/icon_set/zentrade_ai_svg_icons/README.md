@@ -20,6 +20,7 @@ Diese Seite dokumentiert die SVG-Grafiken in diesem Ordner und den zugehoerigen 
 - `wallet.svg`
 - `z-logo-favicon.svg`
 - `zentrade-ai-brand-icon.svg`
+- `zentrade_ai_icon_clean.svg`
 
 ## Varianten-Saetze
 
