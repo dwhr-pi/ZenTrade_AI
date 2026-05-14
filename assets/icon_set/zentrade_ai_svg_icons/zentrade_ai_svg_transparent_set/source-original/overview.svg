@@ -1,0 +1,146 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1356" height="1506" viewBox="0 0 1356 1506" role="img" aria-labelledby="title desc">
+  <title id="title">ZenTrade AI SVG Icon Overview</title>
+  <desc id="desc">Overview of the transparent ZenTrade AI SVG icon set located in source-original.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#06111d"/>
+      <stop offset="55%" stop-color="#0a1730"/>
+      <stop offset="100%" stop-color="#160b25"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#23e6ff"/>
+      <stop offset="50%" stop-color="#7a7dff"/>
+      <stop offset="100%" stop-color="#ff4fd8"/>
+    </linearGradient>
+    <filter id="softGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="0" stdDeviation="10" flood-color="#23e6ff" flood-opacity="0.18"/>
+    </filter>
+    <pattern id="grid" width="24" height="24" patternUnits="userSpaceOnUse">
+      <path d="M 24 0 L 0 0 0 24" fill="none" stroke="#ffffff" stroke-opacity="0.05" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="1356" height="1506" fill="url(#bg)" rx="28"/>
+  <rect width="1356" height="1506" fill="url(#grid)" opacity="0.45" rx="28"/>
+  <text x="36" y="72" fill="#f4fbff" font-size="34" font-family="Segoe UI, Arial, sans-serif" font-weight="700">ZenTrade AI SVG Overview</text>
+  <text x="36" y="102" fill="#9fc2dd" font-size="18" font-family="Segoe UI, Arial, sans-serif">15 source icons from zentrade_ai_svg_transparent_set/source-original</text>
+  <g transform="translate(36 146)">
+    <rect width="300" height="310" rx="24" fill="#060c18" fill-opacity="0.78" stroke="#ffffff" stroke-opacity="0.10" stroke-width="1.5" filter="url(#softGlow)"/>
+    <rect x="16" y="16" width="268" height="278" rx="18" fill="#ffffff" fill-opacity="0.025" stroke="#23e6ff" stroke-opacity="0.12" stroke-width="1"/>
+    <rect x="16" y="16" width="268" height="6" rx="3" fill="url(#accent)" opacity="0.95"/>
+    <image href="zentrade-ai.svg" x="54" y="30" width="192" height="192" preserveAspectRatio="xMidYMid meet"/>
+    <text x="24" y="257" fill="#edf8ff" font-size="18" font-family="Segoe UI, Arial, sans-serif" font-weight="700">ZenTrade AI</text>
+    <text x="24" y="286" fill="#8fb0c8" font-size="14" font-family="Consolas, Menlo, monospace">zentrade-ai.svg</text>
+  </g>
+  <g transform="translate(364 146)">
+    <rect width="300" height="310" rx="24" fill="#060c18" fill-opacity="0.78" stroke="#ffffff" stroke-opacity="0.10" stroke-width="1.5" filter="url(#softGlow)"/>
+    <rect x="16" y="16" width="268" height="278" rx="18" fill="#ffffff" fill-opacity="0.025" stroke="#23e6ff" stroke-opacity="0.12" stroke-width="1"/>
+    <rect x="16" y="16" width="268" height="6" rx="3" fill="url(#accent)" opacity="0.95"/>
+    <image href="ai-analytics.svg" x="54" y="30" width="192" height="192" preserveAspectRatio="xMidYMid meet"/>
+    <text x="24" y="257" fill="#edf8ff" font-size="18" font-family="Segoe UI, Arial, sans-serif" font-weight="700">AI Analytics</text>
+    <text x="24" y="286" fill="#8fb0c8" font-size="14" font-family="Consolas, Menlo, monospace">ai-analytics.svg</text>
+  </g>
+  <g transform="translate(692 146)">
+    <rect width="300" height="310" rx="24" fill="#060c18" fill-opacity="0.78" stroke="#ffffff" stroke-opacity="0.10" stroke-width="1.5" filter="url(#softGlow)"/>
+    <rect x="16" y="16" width="268" height="278" rx="18" fill="#ffffff" fill-opacity="0.025" stroke="#23e6ff" stroke-opacity="0.12" stroke-width="1"/>
+    <rect x="16" y="16" width="268" height="6" rx="3" fill="url(#accent)" opacity="0.95"/>
+    <image href="ai-robot-woman.svg" x="54" y="30" width="192" height="192" preserveAspectRatio="xMidYMid meet"/>
+    <text x="24" y="257" fill="#edf8ff" font-size="18" font-family="Segoe UI, Arial, sans-serif" font-weight="700">AI Robot Woman</text>
+    <text x="24" y="286" fill="#8fb0c8" font-size="14" font-family="Consolas, Menlo, monospace">ai-robot-woman.svg</text>
+  </g>
+  <g transform="translate(1020 146)">
+    <rect width="300" height="310" rx="24" fill="#060c18" fill-opacity="0.78" stroke="#ffffff" stroke-opacity="0.10" stroke-width="1.5" filter="url(#softGlow)"/>
+    <rect x="16" y="16" width="268" height="278" rx="18" fill="#ffffff" fill-opacity="0.025" stroke="#23e6ff" stroke-opacity="0.12" stroke-width="1"/>
+    <rect x="16" y="16" width="268" height="6" rx="3" fill="url(#accent)" opacity="0.95"/>
+    <image href="alerts.svg" x="54" y="30" width="192" height="192" preserveAspectRatio="xMidYMid meet"/>
+    <text x="24" y="257" fill="#edf8ff" font-size="18" font-family="Segoe UI, Arial, sans-serif" font-weight="700">Alerts</text>
+    <text x="24" y="286" fill="#8fb0c8" font-size="14" font-family="Consolas, Menlo, monospace">alerts.svg</text>
+  </g>
+  <g transform="translate(36 484)">
+    <rect width="300" height="310" rx="24" fill="#060c18" fill-opacity="0.78" stroke="#ffffff" stroke-opacity="0.10" stroke-width="1.5" filter="url(#softGlow)"/>
+    <rect x="16" y="16" width="268" height="278" rx="18" fill="#ffffff" fill-opacity="0.025" stroke="#23e6ff" stroke-opacity="0.12" stroke-width="1"/>
+    <rect x="16" y="16" width="268" height="6" rx="3" fill="url(#accent)" opacity="0.95"/>
+    <image href="auto-trading.svg" x="54" y="30" width="192" height="192" preserveAspectRatio="xMidYMid meet"/>
+    <text x="24" y="257" fill="#edf8ff" font-size="18" font-family="Segoe UI, Arial, sans-serif" font-weight="700">Auto Trading</text>
+    <text x="24" y="286" fill="#8fb0c8" font-size="14" font-family="Consolas, Menlo, monospace">auto-trading.svg</text>
+  </g>
+  <g transform="translate(364 484)">
+    <rect width="300" height="310" rx="24" fill="#060c18" fill-opacity="0.78" stroke="#ffffff" stroke-opacity="0.10" stroke-width="1.5" filter="url(#softGlow)"/>
+    <rect x="16" y="16" width="268" height="278" rx="18" fill="#ffffff" fill-opacity="0.025" stroke="#23e6ff" stroke-opacity="0.12" stroke-width="1"/>
+    <rect x="16" y="16" width="268" height="6" rx="3" fill="url(#accent)" opacity="0.95"/>
+    <image href="continuous-247.svg" x="54" y="30" width="192" height="192" preserveAspectRatio="xMidYMid meet"/>
+    <text x="24" y="257" fill="#edf8ff" font-size="18" font-family="Segoe UI, Arial, sans-serif" font-weight="700">Continuous 24/7</text>
+    <text x="24" y="286" fill="#8fb0c8" font-size="14" font-family="Consolas, Menlo, monospace">continuous-247.svg</text>
+  </g>
+  <g transform="translate(692 484)">
+    <rect width="300" height="310" rx="24" fill="#060c18" fill-opacity="0.78" stroke="#ffffff" stroke-opacity="0.10" stroke-width="1.5" filter="url(#softGlow)"/>
+    <rect x="16" y="16" width="268" height="278" rx="18" fill="#ffffff" fill-opacity="0.025" stroke="#23e6ff" stroke-opacity="0.12" stroke-width="1"/>
+    <rect x="16" y="16" width="268" height="6" rx="3" fill="url(#accent)" opacity="0.95"/>
+    <image href="fast-execution.svg" x="54" y="30" width="192" height="192" preserveAspectRatio="xMidYMid meet"/>
+    <text x="24" y="257" fill="#edf8ff" font-size="18" font-family="Segoe UI, Arial, sans-serif" font-weight="700">Fast Execution</text>
+    <text x="24" y="286" fill="#8fb0c8" font-size="14" font-family="Consolas, Menlo, monospace">fast-execution.svg</text>
+  </g>
+  <g transform="translate(1020 484)">
+    <rect width="300" height="310" rx="24" fill="#060c18" fill-opacity="0.78" stroke="#ffffff" stroke-opacity="0.10" stroke-width="1.5" filter="url(#softGlow)"/>
+    <rect x="16" y="16" width="268" height="278" rx="18" fill="#ffffff" fill-opacity="0.025" stroke="#23e6ff" stroke-opacity="0.12" stroke-width="1"/>
+    <rect x="16" y="16" width="268" height="6" rx="3" fill="url(#accent)" opacity="0.95"/>
+    <image href="favicon-z.svg" x="54" y="30" width="192" height="192" preserveAspectRatio="xMidYMid meet"/>
+    <text x="24" y="257" fill="#edf8ff" font-size="18" font-family="Segoe UI, Arial, sans-serif" font-weight="700">Favicon Z</text>
+    <text x="24" y="286" fill="#8fb0c8" font-size="14" font-family="Consolas, Menlo, monospace">favicon-z.svg</text>
+  </g>
+  <g transform="translate(36 822)">
+    <rect width="300" height="310" rx="24" fill="#060c18" fill-opacity="0.78" stroke="#ffffff" stroke-opacity="0.10" stroke-width="1.5" filter="url(#softGlow)"/>
+    <rect x="16" y="16" width="268" height="278" rx="18" fill="#ffffff" fill-opacity="0.025" stroke="#23e6ff" stroke-opacity="0.12" stroke-width="1"/>
+    <rect x="16" y="16" width="268" height="6" rx="3" fill="url(#accent)" opacity="0.95"/>
+    <image href="github-avatar.svg" x="54" y="30" width="192" height="192" preserveAspectRatio="xMidYMid meet"/>
+    <text x="24" y="257" fill="#edf8ff" font-size="18" font-family="Segoe UI, Arial, sans-serif" font-weight="700">GitHub Avatar</text>
+    <text x="24" y="286" fill="#8fb0c8" font-size="14" font-family="Consolas, Menlo, monospace">github-avatar.svg</text>
+  </g>
+  <g transform="translate(364 822)">
+    <rect width="300" height="310" rx="24" fill="#060c18" fill-opacity="0.78" stroke="#ffffff" stroke-opacity="0.10" stroke-width="1.5" filter="url(#softGlow)"/>
+    <rect x="16" y="16" width="268" height="278" rx="18" fill="#ffffff" fill-opacity="0.025" stroke="#23e6ff" stroke-opacity="0.12" stroke-width="1"/>
+    <rect x="16" y="16" width="268" height="6" rx="3" fill="url(#accent)" opacity="0.95"/>
+    <image href="market-scan.svg" x="54" y="30" width="192" height="192" preserveAspectRatio="xMidYMid meet"/>
+    <text x="24" y="257" fill="#edf8ff" font-size="18" font-family="Segoe UI, Arial, sans-serif" font-weight="700">Market Scan</text>
+    <text x="24" y="286" fill="#8fb0c8" font-size="14" font-family="Consolas, Menlo, monospace">market-scan.svg</text>
+  </g>
+  <g transform="translate(692 822)">
+    <rect width="300" height="310" rx="24" fill="#060c18" fill-opacity="0.78" stroke="#ffffff" stroke-opacity="0.10" stroke-width="1.5" filter="url(#softGlow)"/>
+    <rect x="16" y="16" width="268" height="278" rx="18" fill="#ffffff" fill-opacity="0.025" stroke="#23e6ff" stroke-opacity="0.12" stroke-width="1"/>
+    <rect x="16" y="16" width="268" height="6" rx="3" fill="url(#accent)" opacity="0.95"/>
+    <image href="portfolio.svg" x="54" y="30" width="192" height="192" preserveAspectRatio="xMidYMid meet"/>
+    <text x="24" y="257" fill="#edf8ff" font-size="18" font-family="Segoe UI, Arial, sans-serif" font-weight="700">Portfolio</text>
+    <text x="24" y="286" fill="#8fb0c8" font-size="14" font-family="Consolas, Menlo, monospace">portfolio.svg</text>
+  </g>
+  <g transform="translate(1020 822)">
+    <rect width="300" height="310" rx="24" fill="#060c18" fill-opacity="0.78" stroke="#ffffff" stroke-opacity="0.10" stroke-width="1.5" filter="url(#softGlow)"/>
+    <rect x="16" y="16" width="268" height="278" rx="18" fill="#ffffff" fill-opacity="0.025" stroke="#23e6ff" stroke-opacity="0.12" stroke-width="1"/>
+    <rect x="16" y="16" width="268" height="6" rx="3" fill="url(#accent)" opacity="0.95"/>
+    <image href="risk-management.svg" x="54" y="30" width="192" height="192" preserveAspectRatio="xMidYMid meet"/>
+    <text x="24" y="257" fill="#edf8ff" font-size="18" font-family="Segoe UI, Arial, sans-serif" font-weight="700">Risk Management</text>
+    <text x="24" y="286" fill="#8fb0c8" font-size="14" font-family="Consolas, Menlo, monospace">risk-management.svg</text>
+  </g>
+  <g transform="translate(36 1160)">
+    <rect width="300" height="310" rx="24" fill="#060c18" fill-opacity="0.78" stroke="#ffffff" stroke-opacity="0.10" stroke-width="1.5" filter="url(#softGlow)"/>
+    <rect x="16" y="16" width="268" height="278" rx="18" fill="#ffffff" fill-opacity="0.025" stroke="#23e6ff" stroke-opacity="0.12" stroke-width="1"/>
+    <rect x="16" y="16" width="268" height="6" rx="3" fill="url(#accent)" opacity="0.95"/>
+    <image href="settings.svg" x="54" y="30" width="192" height="192" preserveAspectRatio="xMidYMid meet"/>
+    <text x="24" y="257" fill="#edf8ff" font-size="18" font-family="Segoe UI, Arial, sans-serif" font-weight="700">Settings</text>
+    <text x="24" y="286" fill="#8fb0c8" font-size="14" font-family="Consolas, Menlo, monospace">settings.svg</text>
+  </g>
+  <g transform="translate(364 1160)">
+    <rect width="300" height="310" rx="24" fill="#060c18" fill-opacity="0.78" stroke="#ffffff" stroke-opacity="0.10" stroke-width="1.5" filter="url(#softGlow)"/>
+    <rect x="16" y="16" width="268" height="278" rx="18" fill="#ffffff" fill-opacity="0.025" stroke="#23e6ff" stroke-opacity="0.12" stroke-width="1"/>
+    <rect x="16" y="16" width="268" height="6" rx="3" fill="url(#accent)" opacity="0.95"/>
+    <image href="wallet.svg" x="54" y="30" width="192" height="192" preserveAspectRatio="xMidYMid meet"/>
+    <text x="24" y="257" fill="#edf8ff" font-size="18" font-family="Segoe UI, Arial, sans-serif" font-weight="700">Wallet</text>
+    <text x="24" y="286" fill="#8fb0c8" font-size="14" font-family="Consolas, Menlo, monospace">wallet.svg</text>
+  </g>
+  <g transform="translate(692 1160)">
+    <rect width="300" height="310" rx="24" fill="#060c18" fill-opacity="0.78" stroke="#ffffff" stroke-opacity="0.10" stroke-width="1.5" filter="url(#softGlow)"/>
+    <rect x="16" y="16" width="268" height="278" rx="18" fill="#ffffff" fill-opacity="0.025" stroke="#23e6ff" stroke-opacity="0.12" stroke-width="1"/>
+    <rect x="16" y="16" width="268" height="6" rx="3" fill="url(#accent)" opacity="0.95"/>
+    <image href="zentrade-ai-brand-icon.svg" x="54" y="30" width="192" height="192" preserveAspectRatio="xMidYMid meet"/>
+    <text x="24" y="257" fill="#edf8ff" font-size="18" font-family="Segoe UI, Arial, sans-serif" font-weight="700">ZenTrade AI Brand Icon</text>
+    <text x="24" y="286" fill="#8fb0c8" font-size="14" font-family="Consolas, Menlo, monospace">zentrade-ai-brand-icon.svg</text>
+  </g>
+</svg>
