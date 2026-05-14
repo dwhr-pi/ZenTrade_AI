@@ -1,0 +1,87 @@
+{
+  "version": 1,
+  "description": "Machine-readable integration status for strategy and subsystem material under 'neue Strategien und Scripte'.",
+  "entries": [
+    {
+      "id": "volume_universal",
+      "kind": "strategy",
+      "priority": "high",
+      "status": "integrated",
+      "sourcePath": "neue Strategien und Scripte/zenbot_volume_strategy/volume_universal",
+      "targetPath": "extensions/strategies/volume_universal/strategy.js",
+      "notes": "Pilot strategy. Native Zenbot-style volume strategy without external AI dependency."
+    },
+    {
+      "id": "bitcoin_ai_strategy",
+      "kind": "strategy",
+      "priority": "medium",
+      "status": "integrated",
+      "sourcePath": "neue Strategien und Scripte/bitcoin_ai_strategy/src/bitcoin_ai_strategy.js",
+      "targetPath": "extensions/strategies/bitcoin_ai_strategy/strategy.js",
+      "notes": "Prototype-derived strategy adapted into Zenbot strategy format."
+    },
+    {
+      "id": "chatgpt_strategy",
+      "kind": "strategy",
+      "priority": "medium",
+      "status": "integrated",
+      "sourcePath": "neue Strategien und Scripte/zenbot_chatgpt_strategy/chatgpt_strategy",
+      "targetPath": "extensions/strategies/chatgpt_strategy/strategy.js",
+      "notes": "OpenAI-compatible strategy kept inside analysis and paper-trading scope only."
+    },
+    {
+      "id": "zenbot_copy_trading",
+      "kind": "strategy_candidate",
+      "priority": "medium",
+      "status": "queued",
+      "sourcePath": "neue Strategien und Scripte/zenbot_copy_trading",
+      "targetPath": "",
+      "notes": "Original concept remains queued. A simplified file-based variant now exists as extensions/strategies/copy_trading_file/strategy.js."
+    },
+    {
+      "id": "copy_trading_file",
+      "kind": "strategy",
+      "priority": "medium",
+      "status": "integrated",
+      "sourcePath": "neue Strategien und Scripte/zenbot_copy_trading",
+      "targetPath": "extensions/strategies/copy_trading_file/strategy.js",
+      "notes": "Simplified file-based signal strategy derived from the copy-trading pilot idea for analysis, simulation, and paper-trading use."
+    },
+    {
+      "id": "zenbot-ai-risk-analysis",
+      "kind": "subsystem",
+      "priority": "medium",
+      "status": "analysis",
+      "sourcePath": "neue Strategien und Scripte/zenbot-ai-risk-analysis",
+      "targetPath": "",
+      "notes": "Subsystem candidate, not a direct Zenbot strategy."
+    },
+    {
+      "id": "zenbot-db-interfaces",
+      "kind": "subsystem",
+      "priority": "medium",
+      "status": "analysis",
+      "sourcePath": "neue Strategien und Scripte/zenbot-db-interfaces",
+      "targetPath": "",
+      "notes": "Relevant for later database and integration work after strategy pilot verification."
+    },
+    {
+      "id": "zenbot-multi-user-solutions",
+      "kind": "subsystem",
+      "priority": "low",
+      "status": "backlog",
+      "sourcePath": "neue Strategien und Scripte/zenbot-multi-user-solutions",
+      "targetPath": "",
+      "notes": "Larger multi-user architecture topic, not suitable as early pilot."
+    },
+    {
+      "id": "zenbot-multitrading",
+      "kind": "subsystem",
+      "priority": "low",
+      "status": "backlog",
+      "sourcePath": "neue Strategien und Scripte/zenbot-multitrading",
+      "targetPath": "",
+      "notes": "Treat as a larger subsystem after strategy path is stable."
+    }
+  ]
+}

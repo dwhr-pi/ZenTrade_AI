@@ -1,0 +1,7 @@
+{
+  "signal": "hold",
+  "confidence": 0.5,
+  "source": "example",
+  "timestamp": "2026-05-14T10:15:00Z",
+  "reasoning": "Example signal file for copy_trading_file strategy."
+}

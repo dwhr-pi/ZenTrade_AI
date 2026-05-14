@@ -107,6 +107,29 @@ SQL-Kompatibilitaet:
 npm run test:sql-compat
 ```
 
+Strategie-Integrationsstatus:
+
+```powershell
+npm run test:strategy-integrations
+```
+
+Der Integrationsstand fuer Material aus `neue Strategien und Scripte` wird zusaetzlich ueber `neue Strategien und Scripte/integration-manifest.json` gepflegt.
+
+## Installations- und Fehlerlogs
+
+Fuer lokale Diagnose und spaetere Fehlersuche gibt es jetzt einen einfachen Logging-Pfad:
+
+```powershell
+npm run diagnose
+npm run install:log
+npm run test:strategy-integrations:log
+```
+
+Mehr dazu:
+
+- `docs/installation/install-logging-de.md`
+- `logs/README.md`
+
 ## Installationshinweis
 
 Fuer den aktuellen lokalen Kernpfad gilt:

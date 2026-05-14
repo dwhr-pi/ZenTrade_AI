@@ -18,7 +18,7 @@
     "precommit": "lint-staged",
     "test": "jasmine test/**/**.test.js",
     "test-one": "jasmine $PATH_TO_TEST",
-    "test:sql-compat": "node ./scripts/test-sql-compat.js",
+"test:sql-compat": "node ./scripts/test-sql-compat.js", "test:strategy-integrations": "node ./scripts/test-strategy-integrations.js", "test:strategy-integrations:log": "node ./scripts/run-and-log.js strategy-integrations.log npm run test:strategy-integrations", "diagnose": "node ./scripts/diagnose-install.js --write", "install:log": "node ./scripts/run-and-log.js install.log npm install --foreground-scripts",
     "export:access": "node ./scripts/export-access-package.js",
     "postinstall": "node post_install.js",
     "snyk-protect": "snyk protect",
