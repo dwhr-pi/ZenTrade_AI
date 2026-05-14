@@ -3,6 +3,9 @@
 Diese Seite dokumentiert die SVG-Grafiken in diesem Ordner und den zugehoerigen Varianten.
 
 ## Vorschau
+<p>
+  <img src="./zentrade_ai.svg" alt="ZenTrade AI" width="250" height="250" align="center">
+</p>
 
 <p>
   <img src="./zentrade_ai_icon_clean.svg" alt="ZenTrade AI Icon Clean" width="250" height="250">
