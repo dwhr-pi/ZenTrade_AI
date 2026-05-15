@@ -31,6 +31,13 @@ Integrationsstatus der Strategien pruefen und mitschreiben:
 npm run test:strategy-integrations:log
 ```
 
+Signalformat fuer `copy_trading_file` pruefen:
+
+```powershell
+npm run test:copy-trading-signal
+npm run test:copy-trading-signal:log
+```
+
 ## Speicherort
 
 Die erzeugten Dateien liegen unter:
@@ -38,6 +45,8 @@ Die erzeugten Dateien liegen unter:
 - `logs/env-check.log`
 - `logs/install.log`
 - `logs/strategy-integrations.log`
+- `logs/runtime-issues.jsonl`
+- `logs/runtime-issues.md`
 
 ## Eigene Befehle mitschreiben
 
@@ -56,3 +65,31 @@ Die Logs enthalten:
 - den ausgefuehrten Befehl
 - stdout und stderr
 - Exit-Code
+
+## Allgemeiner Fehlerbericht fuer Laufzeitprobleme
+
+Fuer Abstuerze, Inkompatibilitaeten oder uebermaessige Laufzeiten kann ein Befehl ueber das Reporting-Hilfsskript ausgefuehrt werden:
+
+```powershell
+npm run sim:copy-trading-sql:report
+```
+
+Das Skript schreibt:
+
+- den normalen Lauf in eine Logdatei
+- Fehler und Auffaelligkeiten zusaetzlich als strukturierten Bericht in `logs/runtime-issues.jsonl`
+- eine lesbare Historie in `logs/runtime-issues.md`
+
+## Beispiel mit `copy_trading_file`
+
+Fuer den ersten Test der dateibasierten Signalstrategie kann ein Lauf inklusive Log so gestartet werden:
+
+```powershell
+node .\scripts\run-and-log.js copy-trading-file-sim.log node .\zenbot.js sim stub.BTC-USD --conf .\conf-examples\copy-trading-file.conf.js --strategy copy_trading_file --days 1
+```
+
+SQL-Variante mit Log:
+
+```powershell
+node .\scripts\run-and-log.js copy-trading-file-sql-sim.log node .\zenbot.js sim stub.BTC-USD --conf .\conf-examples\copy-trading-file-sql.conf.js --strategy copy_trading_file --days 1
+```

@@ -1,0 +1,11 @@
+============================================================
+Timestamp: 2026-05-15T11:17:15.899Z
+CWD: C:\Users\danie\Documents\GitHub\ZenTrade_AI
+Command: node .\zenbot.js sim stub.BTC-USD --conf .\conf-examples\copy-trading-file-sql.conf.js --strategy copy_trading_file --days 1
+============================================================
+Error: Cannot find module './conf'
+Require stack:
+- C:\Users\danie\Documents\GitHub\ZenTrade_AI\boot.js
+- C:\Users\danie\Documents\GitHub\ZenTrade_AI\zenbot.js, falling back to conf-sample
+(node:12804) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)

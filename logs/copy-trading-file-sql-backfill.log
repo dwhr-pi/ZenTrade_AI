@@ -1,0 +1,21 @@
+============================================================
+Timestamp: 2026-05-15T10:50:40.220Z
+CWD: C:\Users\danie\Documents\GitHub\ZenTrade_AI
+Command: node .\zenbot.js backfill stub.BTC-USD --conf .\conf-examples\copy-trading-file-sql.conf.js --days 1
+============================================================
+Error: Cannot find module './conf'
+Require stack:
+- C:\Users\danie\Documents\GitHub\ZenTrade_AI\boot.js
+- C:\Users\danie\Documents\GitHub\ZenTrade_AI\zenbot.js, falling back to conf-sample
+(node:14576) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+stub.BTC-USD saved 250 trades 1 days left
+....
+stub.BTC-USD saved 1250 trades 0 days left
+
+download complete!
+
+
+Exit code: 0
+

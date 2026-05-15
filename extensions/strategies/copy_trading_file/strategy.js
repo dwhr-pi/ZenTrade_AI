@@ -23,19 +23,28 @@ function normalizeSignal(payload) {
   if (!payload || typeof payload !== 'object') return null
 
   var signal = payload.signal
+  var side = payload.side || signal
   var confidence = typeof payload.confidence === 'number' ? payload.confidence : 0
   var source = payload.source || 'file'
   var timestamp = payload.timestamp || payload.time || null
+  var expiresAt = payload.expires_at || null
   var reasoning = payload.reasoning || payload.note || ''
+  var symbol = payload.symbol || null
+  var tags = Array.isArray(payload.tags) ? payload.tags : []
 
   if (signal !== 'buy' && signal !== 'sell' && signal !== 'hold') return null
+  if (side !== 'buy' && side !== 'sell' && side !== 'hold') return null
 
   return {
     signal: signal,
+    side: side,
     confidence: confidence,
     source: source,
     timestamp: timestamp,
-    reasoning: reasoning
+    expires_at: expiresAt,
+    reasoning: reasoning,
+    symbol: symbol,
+    tags: tags
   }
 }
 
@@ -44,6 +53,13 @@ function signalAgeSeconds(timestamp) {
   var created = new Date(timestamp).getTime()
   if (!created || isNaN(created)) return Number.POSITIVE_INFINITY
   return Math.max(0, Math.floor((Date.now() - created) / 1000))
+}
+
+function isExpired(expiresAt) {
+  if (!expiresAt) return false
+  var expires = new Date(expiresAt).getTime()
+  if (!expires || isNaN(expires)) return false
+  return Date.now() > expires
 }
 
 module.exports = {
@@ -89,9 +105,18 @@ module.exports = {
     s.period.copy_signal_source = signalData.source
     s.period.copy_signal_reasoning = signalData.reasoning
     s.period.copy_signal_age_s = age
+    s.period.copy_signal_side = signalData.side
+    s.period.copy_signal_symbol = signalData.symbol
+    s.period.copy_signal_tags = signalData.tags.join(',')
+    s.period.copy_signal_expires_at = signalData.expires_at || ''
 
     if (age > s.options.signal_max_age_s) {
       s.period.copy_signal_status = 'stale'
+      return cb()
+    }
+
+    if (isExpired(signalData.expires_at)) {
+      s.period.copy_signal_status = 'expired'
       return cb()
     }
 
@@ -100,8 +125,8 @@ module.exports = {
       return cb()
     }
 
-    if (signalData.signal === 'buy' && s.options.allow_buy) s.signal = 'buy'
-    else if (signalData.signal === 'sell' && s.options.allow_sell) s.signal = 'sell'
+    if (signalData.side === 'buy' && s.options.allow_buy) s.signal = 'buy'
+    else if (signalData.side === 'sell' && s.options.allow_sell) s.signal = 'sell'
     else s.signal = null
 
     cb()
@@ -113,9 +138,9 @@ module.exports = {
       cols.push(z(16, 'sig ' + s.period.copy_signal_status, ' ').grey)
     }
 
-    if (s.period.copy_signal) {
-      var color = s.period.copy_signal === 'buy' ? 'green' : (s.period.copy_signal === 'sell' ? 'red' : 'grey')
-      cols.push(z(14, 'file ' + s.period.copy_signal, ' ')[color])
+    if (s.period.copy_signal_side) {
+      var color = s.period.copy_signal_side === 'buy' ? 'green' : (s.period.copy_signal_side === 'sell' ? 'red' : 'grey')
+      cols.push(z(14, 'file ' + s.period.copy_signal_side, ' ')[color])
     }
 
     if (typeof s.period.copy_signal_confidence === 'number') {
@@ -124,6 +149,10 @@ module.exports = {
 
     if (typeof s.period.copy_signal_age_s === 'number' && isFinite(s.period.copy_signal_age_s)) {
       cols.push(z(10, s.period.copy_signal_age_s + 's', ' ').yellow)
+    }
+
+    if (s.period.copy_signal_symbol) {
+      cols.push(z(14, s.period.copy_signal_symbol, ' ').white)
     }
 
     return cols

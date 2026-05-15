@@ -146,8 +146,10 @@ module.exports = function (program, conf) {
         //console.log('buy hold', buy_hold.format('0.00000000'))
         var buy_hold_profit = s.start_capital ? n(buy_hold).subtract(s.start_capital).divide(s.start_capital) : n(0)
         output_lines.push('buy hold: ' + buy_hold.format('0.00000000').yellow + ' (' + n(buy_hold_profit).format('0.00%') + ')')
+        var simulated_days = s.day_count || so.days || 0
+        var avg_trades_per_day = simulated_days ? n(s.my_trades.length / simulated_days).format('0.00') : '0.00'
         output_lines.push('vs. buy hold: ' + n(s.balance.currency).subtract(buy_hold).divide(buy_hold).format('0.00%').yellow)
-        output_lines.push(s.my_trades.length + ' trades over ' + s.day_count + ' days (avg ' + n(s.my_trades.length / s.day_count).format('0.00') + ' trades/day)')
+        output_lines.push(s.my_trades.length + ' trades over ' + simulated_days + ' days (avg ' + avg_trades_per_day + ' trades/day)')
         var last_buy
         var losses = 0, sells = 0
         s.my_trades.forEach(function (trade) {
@@ -175,7 +177,7 @@ module.exports = function (program, conf) {
         options_output.simresults.buy_hold = buy_hold.value()
         options_output.simresults.buy_hold_profit = buy_hold_profit.value()
         options_output.simresults.total_trades = s.my_trades.length
-        options_output.simresults.length_days = s.day_count
+        options_output.simresults.length_days = simulated_days
         options_output.simresults.total_sells = sells
         options_output.simresults.total_losses = losses
         options_output.simresults.vs_buy_hold = n(s.balance.currency).subtract(buy_hold).divide(buy_hold).value() * 100.00

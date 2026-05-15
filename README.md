@@ -130,6 +130,41 @@ Mehr dazu:
 - `docs/installation/install-logging-de.md`
 - `logs/README.md`
 
+Fuer allgemeine Laufzeitfehler, Latenzen und Inkompatibilitaeten gibt es zusaetzlich einen Fehlerberichtspfad:
+
+```powershell
+npm run sim:copy-trading-sql:report
+```
+
+Dabei werden Probleme automatisch in `logs/runtime-issues.jsonl` und `logs/runtime-issues.md` erfasst.
+
+## Copy-Trading-File Pilot
+
+Die vereinfachte dateibasierte Strategie `copy_trading_file` kann lokal mit einer vorbereiteten Beispielkonfiguration getestet werden:
+
+```powershell
+node .\zenbot.js sim stub.BTC-USD --conf .\conf-examples\copy-trading-file.conf.js --strategy copy_trading_file --days 1
+```
+
+SQL-Variante:
+
+```powershell
+node .\zenbot.js sim stub.BTC-USD --conf .\conf-examples\copy-trading-file-sql.conf.js --strategy copy_trading_file --days 1
+```
+
+Signalformat vorab pruefen:
+
+```powershell
+npm run test:copy-trading-signal
+```
+
+Verwendete Hilfsdateien:
+
+- `conf-examples/copy-trading-file.conf.js`
+- `conf-examples/copy-trading-file-sql.conf.js`
+- `data/signals/copy-trading-signal.example.json`
+- `extensions/strategies/copy_trading_file/README.md`
+
 ## Installationshinweis
 
 Fuer den aktuellen lokalen Kernpfad gilt:
