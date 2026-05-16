@@ -1,0 +1,18 @@
+============================================================
+Timestamp: 2026-05-16T08:01:27.734Z
+CWD: C:\Users\danie\Documents\GitHub\ZenTrade_AI
+Command: node -e process.exit(1)
+============================================================
+
+Exit code: 1
+Duration ms: 939
+
+============================================================
+Timestamp: 2026-05-16T08:02:23.123Z
+CWD: C:\Users\danie\Documents\GitHub\ZenTrade_AI
+Command: node -e process.exit(1)
+============================================================
+
+Exit code: 1
+Duration ms: 822
+

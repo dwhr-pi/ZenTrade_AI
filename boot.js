@@ -26,7 +26,9 @@ module.exports = function (cb) {
   try {
     conf = require('./conf')
   } catch (err) {
-    console.error(err + ', falling back to conf-sample')
+    if (err && err.code !== 'MODULE_NOT_FOUND') {
+      console.error(err + ', falling back to conf-sample')
+    }
   }
 
   // 3. Load conf-sample.js and merge

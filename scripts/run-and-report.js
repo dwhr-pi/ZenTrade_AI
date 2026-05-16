@@ -2,7 +2,8 @@
 
 var fs = require('fs')
 var path = require('path')
-var spawn = require('child_process').spawn
+var childProcess = require('child_process')
+var spawn = childProcess.spawn
 
 var args = process.argv.slice(2)
 if (args.length < 4) {
@@ -53,7 +54,7 @@ function handleChunk(chunk, writer) {
 
 function reportIssue(issueCategory, severity, title, exitCode, durationMs, notes) {
   var reporter = path.join(repoRoot, 'scripts', 'report-runtime-issue.js')
-  spawn(process.execPath, [
+  childProcess.spawnSync(process.execPath, [
     reporter,
     '--category', issueCategory,
     '--severity', severity,
@@ -66,8 +67,7 @@ function reportIssue(issueCategory, severity, title, exitCode, durationMs, notes
     '--notes', notes
   ], {
     cwd: repoRoot,
-    stdio: 'ignore',
-    detached: false
+    stdio: 'ignore'
   })
 }
 

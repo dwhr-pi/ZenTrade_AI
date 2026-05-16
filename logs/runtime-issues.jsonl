@@ -1,0 +1,1 @@
+{"timestamp":"2026-05-16T08:02:24.572Z","category":"compatibility","severity":"high","title":"Command failed","command":"node -e process.exit(1)","exitCode":1,"durationMs":822,"cwd":"C:\\Users\\danie\\Documents\\GitHub\\ZenTrade_AI","logFile":"C:\\Users\\danie\\Documents\\GitHub\\ZenTrade_AI\\logs\\runtime-report-selftest.log","notes":true}
