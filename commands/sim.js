@@ -133,7 +133,12 @@ module.exports = function (program, conf) {
             time: s.period.time
           })
         }
-        s.balance.currency = n(s.net_currency).add(n(s.period.close).multiply(s.balance.asset)).format('0.00000000')
+        var ending_currency = s.net_currency != null ? s.net_currency : s.balance.currency
+        if (ending_currency == null) {
+          ending_currency = so.currency_capital || 0
+        }
+        var ending_asset = s.balance.asset != null ? s.balance.asset : so.asset_capital || 0
+        s.balance.currency = n(ending_currency).add(n(s.period.close).multiply(ending_asset)).format('0.00000000')
 
         s.balance.asset = 0
         s.lookback.unshift(s.period)
