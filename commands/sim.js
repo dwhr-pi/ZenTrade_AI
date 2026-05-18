@@ -111,6 +111,12 @@ module.exports = function (program, conf) {
           console.error('no trades found! try running `zenbot backfill ' + so.selector.normalized + '` first')
           process.exit(1)
         }
+        function safeNumber (value, fallback) {
+          if (typeof fallback === 'undefined') fallback = 0
+          if (value && typeof value.value === 'function') value = value.value()
+          value = Number(value)
+          return isFinite(value) ? value : fallback
+        }
         var option_keys = Object.keys(so)
         var output_lines = []
         option_keys.sort(function (a, b) {
@@ -133,27 +139,29 @@ module.exports = function (program, conf) {
             time: s.period.time
           })
         }
-        var ending_currency = s.net_currency != null ? s.net_currency : s.balance.currency
-        if (ending_currency == null) {
-          ending_currency = so.currency_capital || 0
-        }
-        var ending_asset = s.balance.asset != null ? s.balance.asset : so.asset_capital || 0
-        s.balance.currency = n(ending_currency).add(n(s.period.close).multiply(ending_asset)).format('0.00000000')
+        var periodClose = safeNumber(s.period.close)
+        var netCurrency = safeNumber(s.net_currency)
+        var assetBalance = safeNumber(s.balance.asset)
+        var startCapital = safeNumber(s.start_capital)
+        var startPrice = safeNumber(s.start_price)
+        var endingBalance = n(netCurrency).add(n(periodClose).multiply(assetBalance))
+        s.balance.currency = endingBalance.format('0.00000000')
 
         s.balance.asset = 0
         s.lookback.unshift(s.period)
-        var profit = s.start_capital ? n(s.balance.currency).subtract(s.start_capital).divide(s.start_capital) : n(0)
-        output_lines.push('end balance: ' + n(s.balance.currency).format('0.00000000').yellow + ' (' + profit.format('0.00%') + ')')
+        var profit = startCapital ? endingBalance.subtract(startCapital).divide(startCapital) : n(0)
+        output_lines.push('end balance: ' + endingBalance.format('0.00000000').yellow + ' (' + profit.format('0.00%') + ')')
         //console.log('start_capital', s.start_capital)
         //console.log('start_price', n(s.start_price).format('0.00000000'))
         //console.log('close', n(s.period.close).format('0.00000000'))
-        var buy_hold = s.start_price ? n(s.period.close).multiply(n(s.start_capital).divide(s.start_price)) : n(s.balance.currency)
+        var buy_hold = startPrice ? n(periodClose).multiply(n(startCapital).divide(startPrice)) : endingBalance
         //console.log('buy hold', buy_hold.format('0.00000000'))
-        var buy_hold_profit = s.start_capital ? n(buy_hold).subtract(s.start_capital).divide(s.start_capital) : n(0)
+        var buy_hold_profit = startCapital ? n(buy_hold).subtract(startCapital).divide(startCapital) : n(0)
         output_lines.push('buy hold: ' + buy_hold.format('0.00000000').yellow + ' (' + n(buy_hold_profit).format('0.00%') + ')')
         var simulated_days = s.day_count || so.days || 0
         var avg_trades_per_day = simulated_days ? n(s.my_trades.length / simulated_days).format('0.00') : '0.00'
-        output_lines.push('vs. buy hold: ' + n(s.balance.currency).subtract(buy_hold).divide(buy_hold).format('0.00%').yellow)
+        var vsBuyHold = safeNumber(buy_hold.value()) ? endingBalance.subtract(buy_hold).divide(buy_hold) : n(0)
+        output_lines.push('vs. buy hold: ' + vsBuyHold.format('0.00%').yellow)
         output_lines.push(s.my_trades.length + ' trades over ' + simulated_days + ' days (avg ' + avg_trades_per_day + ' trades/day)')
         var last_buy
         var losses = 0, sells = 0
@@ -174,10 +182,10 @@ module.exports = function (program, conf) {
         }
         options_output.simresults.start_capital = s.start_capital
         options_output.simresults.last_buy_price = s.last_buy_price
-        options_output.simresults.last_assest_value = s.period.close
-        options_output.net_currency = s.net_currency
+        options_output.simresults.last_assest_value = periodClose
+        options_output.net_currency = netCurrency
         options_output.simresults.asset_capital = s.asset_capital
-        options_output.simresults.currency = n(s.balance.currency).value()
+        options_output.simresults.currency = endingBalance.value()
         options_output.simresults.profit = profit.value()
         options_output.simresults.buy_hold = buy_hold.value()
         options_output.simresults.buy_hold_profit = buy_hold_profit.value()
@@ -185,7 +193,7 @@ module.exports = function (program, conf) {
         options_output.simresults.length_days = simulated_days
         options_output.simresults.total_sells = sells
         options_output.simresults.total_losses = losses
-        options_output.simresults.vs_buy_hold = n(s.balance.currency).subtract(buy_hold).divide(buy_hold).value() * 100.00
+        options_output.simresults.vs_buy_hold = vsBuyHold.value() * 100.00
 
         let options_json = JSON.stringify(options_output, null, 2)
         if (so.show_options) {

@@ -107,6 +107,18 @@ SQL-Kompatibilitaet:
 npm run test:sql-compat
 ```
 
+CSV/SQL-Handover-Smoketest:
+
+```powershell
+npm run test:db-interface-handover
+```
+
+End-to-End-Smoketest fuer `backfill -> sim_results` pro Backend:
+
+```powershell
+npm run test:backfill-sim-e2e
+```
+
 Strategie-Integrationsstatus:
 
 ```powershell
@@ -129,6 +141,20 @@ Mehr dazu:
 
 - `docs/installation/install-logging-de.md`
 - `logs/README.md`
+
+Fuer den Datenbank-Handover zwischen CSV und SQL gibt es zusaetzlich einen reproduzierbaren Smoke-Test:
+
+```powershell
+npm run test:db-interface-handover
+npm run test:db-interface-handover:log
+```
+
+Fuer den ersten echten Befehlsfluss gibt es zusaetzlich einen End-to-End-Test:
+
+```powershell
+npm run test:backfill-sim-e2e
+npm run test:backfill-sim-e2e:log
+```
 
 Fuer allgemeine Laufzeitfehler, Latenzen und Inkompatibilitaeten gibt es zusaetzlich einen Fehlerberichtspfad:
 
@@ -158,12 +184,30 @@ Signalformat vorab pruefen:
 npm run test:copy-trading-signal
 ```
 
+Reproduzierbarer Szenario-Test fuer echte `buy`- und `sell`-Signale:
+
+```powershell
+npm run test:copy-trading-scenario
+node .\zenbot.js backfill stub.BTC-USD --conf .\conf-examples\copy-trading-file-scenario-sql.conf.js --days 1
+npm run sim:copy-trading-scenario-sql
+```
+
+Mit Logging und Fehlerbericht:
+
+```powershell
+npm run test:copy-trading-scenario:log
+npm run sim:copy-trading-scenario-sql:report
+```
+
 Verwendete Hilfsdateien:
 
 - `conf-examples/copy-trading-file.conf.js`
 - `conf-examples/copy-trading-file-sql.conf.js`
+- `conf-examples/copy-trading-file-scenario-sql.conf.js`
 - `data/signals/copy-trading-signal.example.json`
+- `data/signals/copy-trading-scenario.example.json`
 - `extensions/strategies/copy_trading_file/README.md`
+- `scripts/test-copy-trading-scenario.js`
 
 ## Installationshinweis
 

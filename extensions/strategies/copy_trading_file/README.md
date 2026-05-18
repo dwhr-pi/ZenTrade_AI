@@ -54,3 +54,17 @@ Signaldatei validieren:
 ```powershell
 node .\scripts\validate-copy-trading-signal.js
 ```
+
+Reproduzierbarer Szenario-Test:
+
+```powershell
+npm run test:copy-trading-scenario
+node .\zenbot.js backfill stub.BTC-USD --conf .\conf-examples\copy-trading-file-scenario-sql.conf.js --days 1
+npm run sim:copy-trading-scenario-sql
+```
+
+Der Szenario-Test nutzt:
+
+- `data/signals/copy-trading-scenario.example.json`
+- `conf-examples/copy-trading-file-scenario-sql.conf.js`
+- `scripts/test-copy-trading-scenario.js`

@@ -31,11 +31,32 @@ Integrationsstatus der Strategien pruefen und mitschreiben:
 npm run test:strategy-integrations:log
 ```
 
+CSV/SQL-Handover pruefen und mitschreiben:
+
+```powershell
+npm run test:db-interface-handover
+npm run test:db-interface-handover:log
+```
+
+End-to-End-Pfad `backfill -> sim_results` pruefen und mitschreiben:
+
+```powershell
+npm run test:backfill-sim-e2e
+npm run test:backfill-sim-e2e:log
+```
+
 Signalformat fuer `copy_trading_file` pruefen:
 
 ```powershell
 npm run test:copy-trading-signal
 npm run test:copy-trading-signal:log
+```
+
+Szenario-Test fuer `copy_trading_file` pruefen:
+
+```powershell
+npm run test:copy-trading-scenario
+npm run test:copy-trading-scenario:log
 ```
 
 ## Speicherort
@@ -92,4 +113,17 @@ SQL-Variante mit Log:
 
 ```powershell
 node .\scripts\run-and-log.js copy-trading-file-sql-sim.log node .\zenbot.js sim stub.BTC-USD --conf .\conf-examples\copy-trading-file-sql.conf.js --strategy copy_trading_file --days 1
+```
+
+Reproduzierbarer Szenario-Lauf mit echten `buy`- und `sell`-Signalen:
+
+```powershell
+node .\zenbot.js backfill stub.BTC-USD --conf .\conf-examples\copy-trading-file-scenario-sql.conf.js --days 1
+npm run sim:copy-trading-scenario-sql
+```
+
+Mit strukturiertem Fehlerbericht:
+
+```powershell
+npm run sim:copy-trading-scenario-sql:report
 ```
