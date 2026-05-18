@@ -1,0 +1,17 @@
+============================================================
+Timestamp: 2026-05-18T14:15:15.622Z
+CWD: C:\Users\danie\Documents\GitHub\ZenTrade_AI
+Command: node .\zenbot.js backfill stub.BTC-USD --conf .\conf-examples\copy-trading-file-scenario-sql.conf.js --days 1
+============================================================
+(node:4240) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+stub.BTC-USD saved 250 trades 1 days left
+....
+stub.BTC-USD saved 1250 trades 0 days left
+
+download complete!
+
+
+Exit code: 0
+

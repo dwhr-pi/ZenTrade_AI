@@ -1,0 +1,26 @@
+{
+  "signals": [
+    {
+      "signal": "buy",
+      "side": "buy",
+      "confidence": 0.92,
+      "source": "scenario",
+      "symbol": "BTC-USD",
+      "timestamp": "2026-05-17T15:20:00Z",
+      "expires_at": "2026-05-17T16:30:00Z",
+      "reasoning": "Scenario buy signal for copy_trading_file simulation.",
+      "tags": ["scenario", "buy"]
+    },
+    {
+      "signal": "sell",
+      "side": "sell",
+      "confidence": 0.94,
+      "source": "scenario",
+      "symbol": "BTC-USD",
+      "timestamp": "2026-05-17T16:35:00Z",
+      "expires_at": "2026-05-17T18:30:00Z",
+      "reasoning": "Scenario sell signal for copy_trading_file simulation.",
+      "tags": ["scenario", "sell"]
+    }
+  ]
+}

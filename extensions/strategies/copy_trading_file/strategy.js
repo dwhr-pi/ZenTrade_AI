@@ -19,6 +19,26 @@ function readSignal(filePath) {
   }
 }
 
+function getReferenceTime(period) {
+  if (!period) return Date.now()
+
+  var candidates = [
+    period.time,
+    period.close_time,
+    period.latest_trade_time,
+    period.timestamp
+  ]
+
+  for (var i = 0; i < candidates.length; i++) {
+    var value = candidates[i]
+    if (!value) continue
+    var parsed = new Date(value).getTime()
+    if (!isNaN(parsed)) return parsed
+  }
+
+  return Date.now()
+}
+
 function normalizeSignal(payload) {
   if (!payload || typeof payload !== 'object') return null
 
@@ -48,18 +68,46 @@ function normalizeSignal(payload) {
   }
 }
 
-function signalAgeSeconds(timestamp) {
+function signalAgeSeconds(timestamp, referenceTime) {
   if (!timestamp) return Number.POSITIVE_INFINITY
   var created = new Date(timestamp).getTime()
   if (!created || isNaN(created)) return Number.POSITIVE_INFINITY
-  return Math.max(0, Math.floor((Date.now() - created) / 1000))
+  return Math.max(0, Math.floor(((referenceTime || Date.now()) - created) / 1000))
 }
 
-function isExpired(expiresAt) {
+function isExpired(expiresAt, referenceTime) {
   if (!expiresAt) return false
   var expires = new Date(expiresAt).getTime()
   if (!expires || isNaN(expires)) return false
-  return Date.now() > expires
+  return (referenceTime || Date.now()) > expires
+}
+
+function resolveSignalData(raw, referenceTime) {
+  if (Array.isArray(raw)) {
+    raw = { signals: raw }
+  }
+
+  if (raw && Array.isArray(raw.signals)) {
+    var selected = null
+
+    raw.signals.forEach(function (entry) {
+      var normalized = normalizeSignal(entry)
+      if (!normalized) return
+
+      var signalTime = normalized.timestamp ? new Date(normalized.timestamp).getTime() : null
+      if (!signalTime || isNaN(signalTime)) return
+      if (signalTime > referenceTime) return
+      if (isExpired(normalized.expires_at, referenceTime)) return
+
+      if (!selected || signalTime > new Date(selected.timestamp).getTime()) {
+        selected = normalized
+      }
+    })
+
+    return selected
+  }
+
+  return normalizeSignal(raw)
 }
 
 module.exports = {
@@ -78,6 +126,7 @@ module.exports = {
   calculate: function () {},
   onPeriod: function (s, cb) {
     var filePath = resolveSignalFile(s.options.signal_file)
+    var referenceTime = getReferenceTime(s.period)
     s.period.signal_file = filePath
 
     if (!filePath || !fs.existsSync(filePath)) {
@@ -92,13 +141,13 @@ module.exports = {
       return cb()
     }
 
-    var signalData = normalizeSignal(raw)
+    var signalData = resolveSignalData(raw, referenceTime)
     if (!signalData) {
       s.period.copy_signal_status = 'invalid'
       return cb()
     }
 
-    var age = signalAgeSeconds(signalData.timestamp)
+    var age = signalAgeSeconds(signalData.timestamp, referenceTime)
     s.period.copy_signal_status = 'loaded'
     s.period.copy_signal = signalData.signal
     s.period.copy_signal_confidence = signalData.confidence
@@ -115,7 +164,7 @@ module.exports = {
       return cb()
     }
 
-    if (isExpired(signalData.expires_at)) {
+    if (isExpired(signalData.expires_at, referenceTime)) {
       s.period.copy_signal_status = 'expired'
       return cb()
     }
