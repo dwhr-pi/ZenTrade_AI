@@ -149,18 +149,18 @@ module.exports = function (program, conf) {
 
         s.balance.asset = 0
         s.lookback.unshift(s.period)
-        var profit = startCapital ? endingBalance.subtract(startCapital).divide(startCapital) : n(0)
+        var profit = startCapital ? n(endingBalance.value()).subtract(startCapital).divide(startCapital) : n(0)
         output_lines.push('end balance: ' + endingBalance.format('0.00000000').yellow + ' (' + profit.format('0.00%') + ')')
         //console.log('start_capital', s.start_capital)
         //console.log('start_price', n(s.start_price).format('0.00000000'))
         //console.log('close', n(s.period.close).format('0.00000000'))
-        var buy_hold = startPrice ? n(periodClose).multiply(n(startCapital).divide(startPrice)) : endingBalance
+        var buy_hold = startPrice ? n(periodClose).multiply(n(startCapital).divide(startPrice)) : n(endingBalance.value())
         //console.log('buy hold', buy_hold.format('0.00000000'))
-        var buy_hold_profit = startCapital ? n(buy_hold).subtract(startCapital).divide(startCapital) : n(0)
+        var buy_hold_profit = startCapital ? n(buy_hold.value()).subtract(startCapital).divide(startCapital) : n(0)
         output_lines.push('buy hold: ' + buy_hold.format('0.00000000').yellow + ' (' + n(buy_hold_profit).format('0.00%') + ')')
         var simulated_days = s.day_count || so.days || 0
         var avg_trades_per_day = simulated_days ? n(s.my_trades.length / simulated_days).format('0.00') : '0.00'
-        var vsBuyHold = safeNumber(buy_hold.value()) ? endingBalance.subtract(buy_hold).divide(buy_hold) : n(0)
+        var vsBuyHold = safeNumber(buy_hold.value()) ? n(endingBalance.value()).subtract(buy_hold.value()).divide(buy_hold.value()) : n(0)
         output_lines.push('vs. buy hold: ' + vsBuyHold.format('0.00%').yellow)
         output_lines.push(s.my_trades.length + ' trades over ' + simulated_days + ' days (avg ' + avg_trades_per_day + ' trades/day)')
         var last_buy
@@ -181,10 +181,12 @@ module.exports = function (program, conf) {
           output_lines.push('error rate: ' + (sells ? n(losses).divide(sells).format('0.00%') : '0.00%').yellow)
         }
         options_output.simresults.start_capital = s.start_capital
+        options_output.simresults.start_price = startPrice
         options_output.simresults.last_buy_price = s.last_buy_price
         options_output.simresults.last_assest_value = periodClose
         options_output.net_currency = netCurrency
         options_output.simresults.asset_capital = s.asset_capital
+        options_output.simresults.end_balance = endingBalance.value()
         options_output.simresults.currency = endingBalance.value()
         options_output.simresults.profit = profit.value()
         options_output.simresults.buy_hold = buy_hold.value()

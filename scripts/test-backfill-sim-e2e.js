@@ -133,10 +133,15 @@ async function inspectBackend(type, baseDir) {
     : (latest.selector && latest.selector.normalized)
   assert(latestSelector === 'stub.BTC-USD', type + ' sim_results selector mismatch')
   assert(latest.simresults && typeof latest.simresults.currency !== 'undefined', type + ' sim_results payload missing currency')
+  assert(typeof latest.simresults.end_balance !== 'undefined', type + ' sim_results payload missing end_balance')
+  assert(typeof latest.simresults.start_capital !== 'undefined', type + ' sim_results payload missing start_capital')
+  assert(latest.simresults.end_balance > 0, type + ' end_balance should be greater than zero')
+  assert(latest.simresults.start_capital > 0, type + ' start_capital should be greater than zero')
 
   return {
     tradeCount: await trades.count({ selector: 'stub.BTC-USD' }),
-    latestBalance: latest.simresults.currency,
+    latestBalance: latest.simresults.end_balance,
+    startCapital: latest.simresults.start_capital,
     latestVsBuyHold: latest.simresults.vs_buy_hold
   }
 }
@@ -159,8 +164,8 @@ async function main() {
   const sql = await runBackend('sql')
 
   console.log('Backfill/sim e2e smoke test passed')
-  console.log('csv trades=' + csv.tradeCount + ' end_balance=' + csv.latestBalance + ' vs_buy_hold=' + csv.latestVsBuyHold)
-  console.log('sql trades=' + sql.tradeCount + ' end_balance=' + sql.latestBalance + ' vs_buy_hold=' + sql.latestVsBuyHold)
+  console.log('csv trades=' + csv.tradeCount + ' start_capital=' + csv.startCapital + ' end_balance=' + csv.latestBalance + ' vs_buy_hold=' + csv.latestVsBuyHold)
+  console.log('sql trades=' + sql.tradeCount + ' start_capital=' + sql.startCapital + ' end_balance=' + sql.latestBalance + ' vs_buy_hold=' + sql.latestVsBuyHold)
 }
 
 main().catch((err) => {
