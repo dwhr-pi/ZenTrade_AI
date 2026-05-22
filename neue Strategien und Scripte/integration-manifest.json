@@ -63,7 +63,7 @@
       "status": "integrated",
       "sourcePath": "neue Strategien und Scripte/zenbot-ai-risk-analysis",
       "targetPath": "extensions/strategies/risk_analysis_file/strategy.js",
-      "notes": "File-based risk gating strategy derived from the zenbot-ai-risk-analysis candidate for analysis, simulation, and paper-trading use."
+      "notes": "File-based risk gating strategy derived from the zenbot-ai-risk-analysis candidate for analysis, simulation, and paper-trading use. Includes scenario-based buy/exit regression coverage and a reproducible SQL simulation path."
     },
     {
       "id": "zenbot-db-interfaces",

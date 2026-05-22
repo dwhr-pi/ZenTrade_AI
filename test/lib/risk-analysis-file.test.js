@@ -81,4 +81,34 @@ describe('risk_analysis_file strategy', function () {
     expect(state.signal).toBe('sell')
     expect(state.period.risk_status).toBe('risk-exit')
   })
+
+  it('selects the active assessment from a scenario sequence based on period time', function () {
+    var filePath = writePayload('scenario.json', {
+      assessments: [
+        {
+          recommendation: 'buy',
+          risk_score: 0.2,
+          timestamp: '2026-05-22T09:40:00Z',
+          expires_at: '2026-05-22T10:20:00Z'
+        },
+        {
+          recommendation: 'hold',
+          risk_score: 0.91,
+          timestamp: '2026-05-22T10:30:00Z',
+          expires_at: '2026-05-22T11:00:00Z'
+        }
+      ]
+    })
+
+    var buyState = createState(filePath)
+    buyState.period.time = '2026-05-22T09:50:00Z'
+    runPeriod(buyState)
+    expect(buyState.signal).toBe('buy')
+
+    var exitState = createState(filePath)
+    exitState.period.time = '2026-05-22T10:40:00Z'
+    runPeriod(exitState)
+    expect(exitState.signal).toBe('sell')
+    expect(exitState.period.risk_status).toBe('risk-exit')
+  })
 })

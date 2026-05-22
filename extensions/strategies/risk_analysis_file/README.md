@@ -29,3 +29,17 @@ Schneller lokaler Test:
 ```powershell
 node .\zenbot.js sim stub.BTC-USD --conf .\conf-examples\risk-analysis-file.conf.js --strategy risk_analysis_file --days 1
 ```
+
+Reproduzierbarer Szenario-Test:
+
+```powershell
+npm run test:risk-analysis-scenario
+node .\zenbot.js backfill stub.BTC-USD --conf .\conf-examples\risk-analysis-file-scenario-sql.conf.js --days 1
+npm run sim:risk-analysis-scenario-sql
+```
+
+Der Szenario-Test nutzt:
+
+- `data/risk/risk-analysis-scenario.example.json`
+- `conf-examples/risk-analysis-file-scenario-sql.conf.js`
+- `scripts/test-risk-analysis-scenario.js`

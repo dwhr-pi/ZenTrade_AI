@@ -38,6 +38,34 @@ function normalizePayload(payload) {
   }
 }
 
+function resolveRiskPayload(raw, referenceTime) {
+  if (Array.isArray(raw)) {
+    raw = { assessments: raw }
+  }
+
+  if (raw && Array.isArray(raw.assessments)) {
+    var selected = null
+
+    raw.assessments.forEach(function (entry) {
+      var normalized = normalizePayload(entry)
+      if (!normalized) return
+
+      var entryTime = normalized.timestamp ? new Date(normalized.timestamp).getTime() : null
+      if (!entryTime || isNaN(entryTime)) return
+      if (entryTime > referenceTime) return
+      if (isExpired(normalized.expires_at, referenceTime)) return
+
+      if (!selected || entryTime > new Date(selected.timestamp).getTime()) {
+        selected = normalized
+      }
+    })
+
+    return selected
+  }
+
+  return normalizePayload(raw)
+}
+
 function getReferenceTime(period) {
   if (period && period.time) {
     var periodTime = new Date(period.time).getTime()
@@ -92,7 +120,7 @@ module.exports = {
       return cb()
     }
 
-    var payload = normalizePayload(raw)
+    var payload = resolveRiskPayload(raw, referenceTime)
     if (!payload) {
       s.period.risk_status = 'invalid'
       return cb()

@@ -1,0 +1,24 @@
+{
+  "assessments": [
+    {
+      "recommendation": "buy",
+      "risk_score": 0.18,
+      "confidence": 0.84,
+      "source": "risk-scenario",
+      "timestamp": "2026-05-22T15:20:00Z",
+      "expires_at": "2026-05-22T16:20:00Z",
+      "reasoning": "Niedrige Risikolage bei positivem Momentum.",
+      "tags": ["risk", "scenario", "buy"]
+    },
+    {
+      "recommendation": "hold",
+      "risk_score": 0.91,
+      "confidence": 0.88,
+      "source": "risk-scenario",
+      "timestamp": "2026-05-22T16:35:00Z",
+      "expires_at": "2026-05-22T17:35:00Z",
+      "reasoning": "Risiko-Override aktiv, defensiver Exit noetig.",
+      "tags": ["risk", "scenario", "exit"]
+    }
+  ]
+}

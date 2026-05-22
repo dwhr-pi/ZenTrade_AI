@@ -59,6 +59,13 @@ npm run test:copy-trading-scenario
 npm run test:copy-trading-scenario:log
 ```
 
+Szenario-Test fuer `risk_analysis_file` pruefen:
+
+```powershell
+npm run test:risk-analysis-scenario
+npm run test:risk-analysis-scenario:log
+```
+
 ## Speicherort
 
 Die erzeugten Dateien liegen unter:
@@ -126,4 +133,17 @@ Mit strukturiertem Fehlerbericht:
 
 ```powershell
 npm run sim:copy-trading-scenario-sql:report
+```
+
+Reproduzierbarer Risiko-Szenario-Lauf:
+
+```powershell
+node .\zenbot.js backfill stub.BTC-USD --conf .\conf-examples\risk-analysis-file-scenario-sql.conf.js --days 1
+npm run sim:risk-analysis-scenario-sql
+```
+
+Mit strukturiertem Fehlerbericht:
+
+```powershell
+npm run sim:risk-analysis-scenario-sql:report
 ```

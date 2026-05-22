@@ -212,18 +212,36 @@ npm run test:copy-trading-scenario:log
 npm run sim:copy-trading-scenario-sql:report
 ```
 
+Reproduzierbarer Risiko-Szenario-Test fuer `risk_analysis_file`:
+
+```powershell
+npm run test:risk-analysis-scenario
+node .\zenbot.js backfill stub.BTC-USD --conf .\conf-examples\risk-analysis-file-scenario-sql.conf.js --days 1
+npm run sim:risk-analysis-scenario-sql
+```
+
+Mit Logging und Fehlerbericht:
+
+```powershell
+npm run test:risk-analysis-scenario:log
+npm run sim:risk-analysis-scenario-sql:report
+```
+
 Verwendete Hilfsdateien:
 
 - `conf-examples/copy-trading-file.conf.js`
 - `conf-examples/copy-trading-file-sql.conf.js`
 - `conf-examples/copy-trading-file-scenario-sql.conf.js`
 - `conf-examples/risk-analysis-file.conf.js`
+- `conf-examples/risk-analysis-file-scenario-sql.conf.js`
 - `data/signals/copy-trading-signal.example.json`
 - `data/signals/copy-trading-scenario.example.json`
 - `data/risk/risk-analysis.example.json`
+- `data/risk/risk-analysis-scenario.example.json`
 - `extensions/strategies/copy_trading_file/README.md`
 - `extensions/strategies/risk_analysis_file/README.md`
 - `scripts/test-copy-trading-scenario.js`
+- `scripts/test-risk-analysis-scenario.js`
 
 ## Installationshinweis
 
