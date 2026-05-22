@@ -180,21 +180,33 @@ module.exports = function (program, conf) {
           output_lines.push('win/loss: ' + (sells - losses) + '/' + losses)
           output_lines.push('error rate: ' + (sells ? n(losses).divide(sells).format('0.00%') : '0.00%').yellow)
         }
+        options_output.net_currency = netCurrency
+        options_output.simresults.version = 2
+        options_output.simresults.schema = 'zentrade.simresults.v2'
+        options_output.simresults.selector = so.selector
+        options_output.simresults.selector_normalized = so.selector.normalized
+        options_output.simresults.strategy = so.strategy
+        options_output.simresults.db_type = conf.db && conf.db.type ? conf.db.type : 'mongo'
         options_output.simresults.start_capital = s.start_capital
         options_output.simresults.start_price = startPrice
         options_output.simresults.last_buy_price = s.last_buy_price
         options_output.simresults.last_assest_value = periodClose
-        options_output.net_currency = netCurrency
+        options_output.simresults.last_asset_value = periodClose
         options_output.simresults.asset_capital = s.asset_capital
         options_output.simresults.end_balance = endingBalance.value()
+        options_output.simresults.net_currency = netCurrency
         options_output.simresults.currency = endingBalance.value()
         options_output.simresults.profit = profit.value()
         options_output.simresults.buy_hold = buy_hold.value()
         options_output.simresults.buy_hold_profit = buy_hold_profit.value()
+        options_output.simresults.trade_count = s.my_trades.length
         options_output.simresults.total_trades = s.my_trades.length
         options_output.simresults.length_days = simulated_days
         options_output.simresults.total_sells = sells
         options_output.simresults.total_losses = losses
+        options_output.simresults.win_count = sells - losses
+        options_output.simresults.loss_count = losses
+        options_output.simresults.avg_trades_per_day = simulated_days ? s.my_trades.length / simulated_days : 0
         options_output.simresults.vs_buy_hold = vsBuyHold.value() * 100.00
 
         let options_json = JSON.stringify(options_output, null, 2)

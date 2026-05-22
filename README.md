@@ -156,6 +156,19 @@ npm run test:backfill-sim-e2e
 npm run test:backfill-sim-e2e:log
 ```
 
+Die gespeicherten `sim_results` werden dabei jetzt mit einem stabileren Zielschema geschrieben, unter anderem mit:
+
+- `selector_normalized`
+- `strategy`
+- `db_type`
+- `start_capital`
+- `start_price`
+- `end_balance`
+- `net_currency`
+- `trade_count`
+- `avg_trades_per_day`
+- `vs_buy_hold`
+
 Fuer allgemeine Laufzeitfehler, Latenzen und Inkompatibilitaeten gibt es zusaetzlich einen Fehlerberichtspfad:
 
 ```powershell
@@ -204,9 +217,12 @@ Verwendete Hilfsdateien:
 - `conf-examples/copy-trading-file.conf.js`
 - `conf-examples/copy-trading-file-sql.conf.js`
 - `conf-examples/copy-trading-file-scenario-sql.conf.js`
+- `conf-examples/risk-analysis-file.conf.js`
 - `data/signals/copy-trading-signal.example.json`
 - `data/signals/copy-trading-scenario.example.json`
+- `data/risk/risk-analysis.example.json`
 - `extensions/strategies/copy_trading_file/README.md`
+- `extensions/strategies/risk_analysis_file/README.md`
 - `scripts/test-copy-trading-scenario.js`
 
 ## Installationshinweis

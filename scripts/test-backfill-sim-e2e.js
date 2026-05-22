@@ -135,6 +135,11 @@ async function inspectBackend(type, baseDir) {
   assert(latest.simresults && typeof latest.simresults.currency !== 'undefined', type + ' sim_results payload missing currency')
   assert(typeof latest.simresults.end_balance !== 'undefined', type + ' sim_results payload missing end_balance')
   assert(typeof latest.simresults.start_capital !== 'undefined', type + ' sim_results payload missing start_capital')
+  assert(latest.simresults.selector_normalized === 'stub.BTC-USD', type + ' sim_results payload missing selector_normalized')
+  assert(latest.simresults.strategy === 'volume_universal', type + ' sim_results payload missing strategy')
+  assert(latest.simresults.db_type === type, type + ' sim_results payload missing db_type')
+  assert(typeof latest.simresults.trade_count !== 'undefined', type + ' sim_results payload missing trade_count')
+  assert(typeof latest.simresults.avg_trades_per_day !== 'undefined', type + ' sim_results payload missing avg_trades_per_day')
   assert(latest.simresults.end_balance > 0, type + ' end_balance should be greater than zero')
   assert(latest.simresults.start_capital > 0, type + ' start_capital should be greater than zero')
 

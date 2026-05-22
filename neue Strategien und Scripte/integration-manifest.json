@@ -51,10 +51,19 @@
       "id": "zenbot-ai-risk-analysis",
       "kind": "subsystem",
       "priority": "medium",
-      "status": "analysis",
+      "status": "partial",
       "sourcePath": "neue Strategien und Scripte/zenbot-ai-risk-analysis",
       "targetPath": "",
-      "notes": "Subsystem candidate, not a direct Zenbot strategy."
+      "notes": "Subsystem candidate, not a direct Zenbot strategy. A first file-based pilot now exists as extensions/strategies/risk_analysis_file/strategy.js."
+    },
+    {
+      "id": "risk_analysis_file",
+      "kind": "strategy",
+      "priority": "medium",
+      "status": "integrated",
+      "sourcePath": "neue Strategien und Scripte/zenbot-ai-risk-analysis",
+      "targetPath": "extensions/strategies/risk_analysis_file/strategy.js",
+      "notes": "File-based risk gating strategy derived from the zenbot-ai-risk-analysis candidate for analysis, simulation, and paper-trading use."
     },
     {
       "id": "zenbot-db-interfaces",

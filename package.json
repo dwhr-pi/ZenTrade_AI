@@ -29,6 +29,8 @@
     "test:copy-trading-signal:log": "node ./scripts/run-and-log.js copy-trading-signal-validation.log node ./scripts/validate-copy-trading-signal.js",
     "test:copy-trading-scenario": "node ./scripts/test-copy-trading-scenario.js",
     "test:copy-trading-scenario:log": "node ./scripts/run-and-log.js copy-trading-scenario.log node ./scripts/test-copy-trading-scenario.js",
+    "test:risk-analysis-file": "jasmine test/lib/risk-analysis-file.test.js",
+    "test:risk-analysis-file:log": "node ./scripts/run-and-log.js risk-analysis-file.log npm run test:risk-analysis-file",
     "diagnose": "node ./scripts/diagnose-install.js --write",
     "install:log": "node ./scripts/run-and-log.js install.log npm install --foreground-scripts",
     "sim:copy-trading-sql:report": "node ./scripts/run-and-report.js copy-trading-file-sql-sim-report.log runtime 120000 node ./zenbot.js sim stub.BTC-USD --conf ./conf-examples/copy-trading-file-sql.conf.js --strategy copy_trading_file --days 1",
